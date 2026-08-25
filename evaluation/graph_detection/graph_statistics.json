@@ -1,0 +1,20 @@
+{
+  "total_nodes": 78759,
+  "total_edges": 186020,
+  "nodes_by_type": {
+    "customers": 24442,
+    "devices": 26076,
+    "payment_instruments": 26743,
+    "merchants": 1498
+  },
+  "edges_by_type": {
+    "CUSTOMER_USES_DEVICE": 26216,
+    "CUSTOMER_OWNS_PI": 26798,
+    "CUSTOMER_TRANSACTS_MERCHANT": 66522,
+    "DEVICE_SEEN_MERCHANT": 66484
+  },
+  "connected_components_count": 1,
+  "largest_component_size": 78759,
+  "average_degree": 4.72,
+  "max_degree": 640
+}

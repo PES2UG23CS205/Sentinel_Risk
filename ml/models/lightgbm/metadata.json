@@ -1,0 +1,120 @@
+{
+  "model_type": "LGBMClassifier",
+  "package": "lightgbm",
+  "version": "4.7.0",
+  "parameters": {
+    "scale_pos_weight": 86.156,
+    "n_estimators": 150,
+    "learning_rate": 0.05,
+    "max_depth": 6,
+    "num_leaves": 31,
+    "min_child_samples": 20,
+    "random_state": 42
+  },
+  "frozen_threshold": 0.05,
+  "test_metrics": {
+    "total_transactions": 10179,
+    "true_positives": 129,
+    "false_positives": 3,
+    "true_negatives": 10045,
+    "false_negatives": 2,
+    "precision": 0.9773,
+    "recall": 0.9847,
+    "f1": 0.981,
+    "precision_pct": "97.73%",
+    "recall_pct": "98.47%",
+    "f1_score": "98.10%",
+    "false_positive_rate": "0.03%",
+    "false_negative_rate": "1.53%",
+    "review_rate": "1.30%",
+    "fn_fraud_loss_inr": 9205.32,
+    "tp_fraud_avoided_inr": 655639.31,
+    "fp_friction_cost_inr": 450.0,
+    "review_overhead_cost_inr": 6600.0,
+    "expected_loss_inr": 16255.32,
+    "model_name": "LightGBM",
+    "frozen_threshold": 0.05,
+    "pr_auc": 0.9992,
+    "roc_auc": 1.0,
+    "pr_auc_pct": "99.92%",
+    "roc_auc_pct": "100.00%",
+    "ato_recall": "98.00%",
+    "card_testing_recall": "100.00%",
+    "coordinated_ring_recall": "0.00%"
+  },
+  "split_info": {
+    "train": {
+      "count": 47500,
+      "fraud_count": 545,
+      "fraud_prevalence": "1.15%",
+      "start_date": "2025-01-01 13:29:23",
+      "end_date": "2025-05-23 09:43:04"
+    },
+    "validation": {
+      "count": 10179,
+      "fraud_count": 44,
+      "fraud_prevalence": "0.43%",
+      "start_date": "2025-05-23 09:44:15",
+      "end_date": "2025-06-11 18:02:49"
+    },
+    "test": {
+      "count": 10179,
+      "fraud_count": 131,
+      "fraud_prevalence": "1.29%",
+      "start_date": "2025-06-11 18:06:20",
+      "end_date": "2025-06-30 23:58:38"
+    }
+  },
+  "top_features_by_gain": [
+    {
+      "feature": "pi_age_days",
+      "gain_importance": 1743668.45,
+      "split_importance": 423
+    },
+    {
+      "feature": "device_age_days",
+      "gain_importance": 140234.53,
+      "split_importance": 406
+    },
+    {
+      "feature": "pi_type_idx",
+      "gain_importance": 77689.35,
+      "split_importance": 40
+    },
+    {
+      "feature": "cust_age_days",
+      "gain_importance": 48210.1,
+      "split_importance": 382
+    },
+    {
+      "feature": "device_velocity_count_24h",
+      "gain_importance": 36303.09,
+      "split_importance": 213
+    },
+    {
+      "feature": "cust_amount_zscore",
+      "gain_importance": 19424.17,
+      "split_importance": 136
+    },
+    {
+      "feature": "amount",
+      "gain_importance": 18420.61,
+      "split_importance": 416
+    },
+    {
+      "feature": "amount_to_merchant_mean_ratio",
+      "gain_importance": 12691.17,
+      "split_importance": 353
+    },
+    {
+      "feature": "device_distinct_cust_prev",
+      "gain_importance": 7643.66,
+      "split_importance": 15
+    },
+    {
+      "feature": "velocity_txn_count_7d",
+      "gain_importance": 7254.31,
+      "split_importance": 13
+    }
+  ]
+}

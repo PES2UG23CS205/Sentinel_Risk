@@ -1,0 +1,6 @@
+cost_component,amount_inr,basis
+False Negative Fraud Loss,633979.22,103 missed fraud txns
+False Positive Friction Cost,5250.0,35 legitimate txns flagged @ ₹150.0/each
+Review Overhead Cost,1850.0,Manual review @ ₹50.0/each
+Total Expected Loss,641079.22,FN Loss + FP Cost + Review Cost
+Fraud Loss Prevented,30865.41,28 fraud txns successfully caught

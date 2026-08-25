@@ -1,0 +1,28 @@
+metric,value,source_artifact,dataset,time_window,calculation,status
+Total Transactions,67858,data/raw/transactions.csv,Synthetic Payments World,2025-01-01 to 2025-06-30,Count of all generated transactions,VERIFIED
+Ground-Truth Fraud Transactions,720,data/raw/transactions.csv,Synthetic Payments World,2025-01-01 to 2025-06-30,Count where is_fraud_ground_truth == 1,VERIFIED
+Ground-Truth Fraud Prevalence,1.06%,data/raw/transactions.csv,Synthetic Payments World,2025-01-01 to 2025-06-30,(720 / 67858) * 100,VERIFIED
+Card Testing Fraud Count,385,data/raw/transactions.csv,Synthetic Payments World,2025-01-01 to 2025-06-30,Count where archetype == card_testing,VERIFIED
+Account Takeover Fraud Count,125,data/raw/transactions.csv,Synthetic Payments World,2025-01-01 to 2025-06-30,Count where archetype == account_takeover,VERIFIED
+Coordinated Ring Fraud Count,210,data/raw/transactions.csv,Synthetic Payments World,2025-01-01 to 2025-06-30,Count where archetype == coordinated_ring,VERIFIED
+Distinct Synthetic Fraud Rings,15,data/raw/transactions.csv,Synthetic Payments World,2025-01-01 to 2025-06-30,Count of distinct ring fraud_case_ids,VERIFIED
+Stage 4 Rules Test Precision,44.44%,evaluation/policy_v1/comparison.csv,Held-Out Test Set,2025-06-11 to 2025-06-30,28 TP / (28 TP + 35 FP),VERIFIED_FROZEN
+Stage 4 Rules Test Recall,21.37%,evaluation/policy_v1/comparison.csv,Held-Out Test Set,2025-06-11 to 2025-06-30,28 TP / 131 Fraud,VERIFIED_FROZEN
+Stage 4 Rules Test F1,28.87%,evaluation/policy_v1/comparison.csv,Held-Out Test Set,2025-06-11 to 2025-06-30,2 * (P * R) / (P + R),VERIFIED_FROZEN
+Stage 5 LightGBM Test Precision,97.73%,evaluation/policy_v1/comparison.csv,Held-Out Test Set,2025-06-11 to 2025-06-30,129 TP / (129 TP + 3 FP),VERIFIED_FROZEN
+Stage 5 LightGBM Test Recall,98.47%,evaluation/policy_v1/comparison.csv,Held-Out Test Set,2025-06-11 to 2025-06-30,129 TP / 131 Fraud,VERIFIED_FROZEN
+Stage 5 LightGBM Test F1,98.10%,evaluation/policy_v1/comparison.csv,Held-Out Test Set,2025-06-11 to 2025-06-30,2 * (P * R) / (P + R),VERIFIED_FROZEN
+Stage 5 LightGBM PR-AUC,99.92%,evaluation/ml_baselines/metrics.json,Held-Out Test Set,2025-06-11 to 2025-06-30,Area under Precision-Recall curve,VERIFIED_FROZEN
+Stage 6 Case-Level Ring Recall,100.00%,evaluation/graph_detection/metrics.json,Full 6-Month Dataset,2025-01-01 to 2025-06-30,15 detected / 15 known rings,VERIFIED
+Stage 6 Ring Transaction Precision,100.00%,evaluation/graph_detection/metrics.json,Full 6-Month Dataset,2025-01-01 to 2025-06-30,165 TP / (165 TP + 0 FP),VERIFIED
+Stage 6 Ring Transaction Recall,78.57%,evaluation/graph_detection/metrics.json,Full 6-Month Dataset,2025-01-01 to 2025-06-30,165 TP / 210 ring transactions,VERIFIED
+Stage 7 Full Dataset Fraud Recall,99.72%,evaluation/policy_v1/metrics.json,Full 6-Month Dataset,2025-01-01 to 2025-06-30,718 caught / 720 total frauds,VERIFIED
+Stage 7 Policy Full Approval Rate,98.27%,evaluation/policy_v1/metrics.json,Full 6-Month Dataset,2025-01-01 to 2025-06-30,66681 APPROVE / 67858 transactions,VERIFIED
+Stage 7 Policy Full Review Rate,0.68%,evaluation/policy_v1/metrics.json,Full 6-Month Dataset,2025-01-01 to 2025-06-30,459 REVIEW / 67858 transactions,VERIFIED
+Stage 7 Policy Full Hold Rate,1.06%,evaluation/policy_v1/metrics.json,Full 6-Month Dataset,2025-01-01 to 2025-06-30,718 HOLD / 67858 transactions,VERIFIED
+Stage 8 Evidence Grounding Rate,100.00%,evaluation/investigation/metrics.json,Benchmark Case Suite,Offline Benchmark,8 grounded findings / 8 total findings,VERIFIED
+Stage 8 Hallucination Rate,0.00%,evaluation/investigation/metrics.json,Benchmark Case Suite,Offline Benchmark,0 unsupported claims / 8 findings,VERIFIED
+Stage 9 In-Process p50 Latency,0.046 ms,evaluation/production/load_test.json,1000 Sequential Transactions,Offline Benchmark,50th percentile total request latency,VERIFIED_LOCAL
+Stage 9 In-Process p95 Latency,0.081 ms,evaluation/production/load_test.json,1000 Sequential Transactions,Offline Benchmark,95th percentile total request latency,VERIFIED_LOCAL
+Stage 9 In-Process p99 Latency,0.136 ms,evaluation/production/load_test.json,1000 Sequential Transactions,Offline Benchmark,99th percentile total request latency,VERIFIED_LOCAL
+Stage 9 Replay Reproducibility,100.00%,scripts/replay_risk.py,500 Sample Audit Transactions,Offline Benchmark,500 exact matches / 500 replayed,VERIFIED

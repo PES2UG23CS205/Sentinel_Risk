@@ -1,0 +1,6 @@
+System,Precision,Recall,F1_Score,Review_Rate,Hold_Rate,Intervention_Rate,Expected_Financial_Loss,Fraud_Loss_Prevented,Evaluation_Period
+Stage 4 Rules Baseline,44.44%,21.37%,28.87%,0.62%,0.00%,0.62%,₹641079.22,₹30865.41,Held-Out Test (June 11–30)
+Stage 5 Logistic Regression,63.68%,92.37%,75.39%,1.87%,0.00%,1.87%,₹85394.91,₹599299.72,Held-Out Test (June 11–30)
+Stage 5 LightGBM,97.73%,98.47%,98.10%,1.30%,0.00%,1.30%,₹16255.32,₹655639.31,Held-Out Test (June 11–30)
+Stage 7 Policy Engine v1,60.00%,98.47%,74.57%,0.84%,0.98%,1.82%,₹26355.32,₹655639.31,Held-Out Test (June 11–30)
+Stage 7 Policy Full 6-Month,60.95%,99.72%,75.66%,0.68%,1.06%,1.73%,₹48250.00,₹2697676.01,Full Dataset (Jan 1–June 30)

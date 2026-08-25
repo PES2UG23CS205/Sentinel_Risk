@@ -1,0 +1,9 @@
+Metric,Value
+Precision,55.90%
+Recall,32.19%
+F1 Score,40.85%
+PR-AUC,32.81%
+ROC-AUC,65.21%
+False Positive Rate,0.23%
+False Negative Rate,67.81%
+Review Rate,0.51%

@@ -1,0 +1,5 @@
+Dataset,Policy,Total Txns,Fraud Count,Approval %,Challenge %,Review %,Hold %,Precision %,Recall %,F1 %,Expected Loss,Friction Cost,Analyst Cost,Total Cost
+synthetic_benchmark,Tri-State (Stage 7),10179,131,96.83,0.0,1.9,1.28,39.94,98.47,56.83,9205.32,29200.0,9650.0,48055.32
+synthetic_benchmark,Quad-State (Stage 12),10179,131,96.74,1.16,0.83,1.28,38.86,98.47,55.72,9205.32,16980.0,4200.0,30385.32
+external_handbook_benchmark,Tri-State (Stage 7),316197,2824,56.12,0.0,37.81,6.07,1.23,60.52,2.41,58970.83,22378550.0,5977200.0,28414720.83
+external_handbook_benchmark,Quad-State (Stage 12),316197,2824,56.12,15.94,21.86,6.07,1.23,60.52,2.41,58970.83,16619580.0,3456750.0,20135300.83

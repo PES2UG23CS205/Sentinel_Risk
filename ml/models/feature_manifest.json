@@ -1,0 +1,376 @@
+{
+  "total_features": 47,
+  "features": [
+    {
+      "name": "amount",
+      "type": "float",
+      "category": "transaction",
+      "encoding": "continuous_standardized",
+      "description": "Transaction authorization amount in INR"
+    },
+    {
+      "name": "amount_log",
+      "type": "float",
+      "category": "transaction",
+      "encoding": "continuous_standardized",
+      "description": "Natural log of amount: ln(amount + 1)"
+    },
+    {
+      "name": "hour_of_day",
+      "type": "int",
+      "category": "transaction",
+      "encoding": "categorical_one_hot",
+      "description": "Hour of the day (0-23)"
+    },
+    {
+      "name": "day_of_week",
+      "type": "int",
+      "category": "transaction",
+      "encoding": "categorical_one_hot",
+      "description": "Day of week (0=Mon to 6=Sun)"
+    },
+    {
+      "name": "is_weekend",
+      "type": "int",
+      "category": "transaction",
+      "encoding": "binary",
+      "description": "1 if Saturday or Sunday, else 0"
+    },
+    {
+      "name": "is_night",
+      "type": "int",
+      "category": "transaction",
+      "encoding": "binary",
+      "description": "1 if off-hour night window (00:00-05:59), else 0"
+    },
+    {
+      "name": "merchant_category_idx",
+      "type": "int",
+      "category": "transaction",
+      "encoding": "categorical_one_hot",
+      "description": "Integer index for merchant category"
+    },
+    {
+      "name": "pi_type_idx",
+      "type": "int",
+      "category": "transaction",
+      "encoding": "categorical_one_hot",
+      "description": "Integer index for payment instrument type (card/upi/netbanking)"
+    },
+    {
+      "name": "cust_age_days",
+      "type": "float",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Customer account age in days as-of t < T"
+    },
+    {
+      "name": "cust_txn_count_prev",
+      "type": "int",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Prior completed transactions for customer"
+    },
+    {
+      "name": "cust_amount_sum_prev",
+      "type": "float",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Prior cumulative spending sum for customer"
+    },
+    {
+      "name": "cust_amount_mean_prev",
+      "type": "float",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Prior average order value (AOV) for customer"
+    },
+    {
+      "name": "cust_amount_std_prev",
+      "type": "float",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Standard deviation of prior customer transactions"
+    },
+    {
+      "name": "cust_amount_max_prev",
+      "type": "float",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Prior maximum transaction amount for customer"
+    },
+    {
+      "name": "cust_days_since_last_txn",
+      "type": "float",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Days since last customer transaction (-1.0 if first)"
+    },
+    {
+      "name": "cust_amount_to_mean_ratio",
+      "type": "float",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Ratio of current amount to customer prior AOV (1.0 if first)"
+    },
+    {
+      "name": "cust_amount_zscore",
+      "type": "float",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Z-score deviation from customer spending mean"
+    },
+    {
+      "name": "cust_is_first_txn",
+      "type": "int",
+      "category": "customer",
+      "encoding": "binary",
+      "description": "1 if first transaction on customer account, else 0"
+    },
+    {
+      "name": "cust_decline_rate_prev",
+      "type": "float",
+      "category": "customer",
+      "encoding": "continuous_standardized",
+      "description": "Prior decline rate for customer"
+    },
+    {
+      "name": "velocity_txn_count_1h",
+      "type": "int",
+      "category": "velocity",
+      "encoding": "continuous_standardized",
+      "description": "Customer transaction count in trailing 1 hour [T-1h, T)"
+    },
+    {
+      "name": "velocity_amount_sum_1h",
+      "type": "float",
+      "category": "velocity",
+      "encoding": "continuous_standardized",
+      "description": "Customer transaction spend sum in trailing 1 hour"
+    },
+    {
+      "name": "velocity_txn_count_24h",
+      "type": "int",
+      "category": "velocity",
+      "encoding": "continuous_standardized",
+      "description": "Customer transaction count in trailing 24 hours"
+    },
+    {
+      "name": "velocity_amount_sum_24h",
+      "type": "float",
+      "category": "velocity",
+      "encoding": "continuous_standardized",
+      "description": "Customer transaction spend sum in trailing 24 hours"
+    },
+    {
+      "name": "velocity_txn_count_7d",
+      "type": "int",
+      "category": "velocity",
+      "encoding": "continuous_standardized",
+      "description": "Customer transaction count in trailing 7 days"
+    },
+    {
+      "name": "velocity_amount_sum_7d",
+      "type": "float",
+      "category": "velocity",
+      "encoding": "continuous_standardized",
+      "description": "Customer transaction spend sum in trailing 7 days"
+    },
+    {
+      "name": "merchant_age_days",
+      "type": "float",
+      "category": "merchant",
+      "encoding": "continuous_standardized",
+      "description": "Merchant account age in days"
+    },
+    {
+      "name": "merchant_txn_count_prev",
+      "type": "int",
+      "category": "merchant",
+      "encoding": "continuous_standardized",
+      "description": "Prior completed transactions for merchant"
+    },
+    {
+      "name": "merchant_amount_mean_prev",
+      "type": "float",
+      "category": "merchant",
+      "encoding": "continuous_standardized",
+      "description": "Merchant baseline historical AOV"
+    },
+    {
+      "name": "merchant_amount_std_prev",
+      "type": "float",
+      "category": "merchant",
+      "encoding": "continuous_standardized",
+      "description": "Standard deviation of prior merchant transactions"
+    },
+    {
+      "name": "merchant_decline_rate_prev",
+      "type": "float",
+      "category": "merchant",
+      "encoding": "continuous_standardized",
+      "description": "Prior decline rate for merchant"
+    },
+    {
+      "name": "merchant_velocity_txn_count_1h",
+      "type": "int",
+      "category": "merchant",
+      "encoding": "continuous_standardized",
+      "description": "Merchant transaction volume in trailing 1 hour"
+    },
+    {
+      "name": "merchant_velocity_txn_count_24h",
+      "type": "int",
+      "category": "merchant",
+      "encoding": "continuous_standardized",
+      "description": "Merchant transaction volume in trailing 24 hours"
+    },
+    {
+      "name": "merchant_velocity_txn_count_7d",
+      "type": "int",
+      "category": "merchant",
+      "encoding": "continuous_standardized",
+      "description": "Merchant transaction volume in trailing 7 days"
+    },
+    {
+      "name": "amount_to_merchant_mean_ratio",
+      "type": "float",
+      "category": "merchant",
+      "encoding": "continuous_standardized",
+      "description": "Ratio of current transaction amount to merchant baseline AOV"
+    },
+    {
+      "name": "device_txn_count_prev",
+      "type": "int",
+      "category": "device",
+      "encoding": "continuous_standardized",
+      "description": "Prior transactions completed on device"
+    },
+    {
+      "name": "device_distinct_cust_prev",
+      "type": "int",
+      "category": "device",
+      "encoding": "continuous_standardized",
+      "description": "Distinct customer count on device prior to T (syndicate signal)"
+    },
+    {
+      "name": "device_distinct_merchants_prev",
+      "type": "int",
+      "category": "device",
+      "encoding": "continuous_standardized",
+      "description": "Distinct merchant count on device prior to T"
+    },
+    {
+      "name": "device_velocity_count_24h",
+      "type": "int",
+      "category": "device",
+      "encoding": "continuous_standardized",
+      "description": "Device transaction count in trailing 24 hours"
+    },
+    {
+      "name": "device_velocity_count_7d",
+      "type": "int",
+      "category": "device",
+      "encoding": "continuous_standardized",
+      "description": "Device transaction count in trailing 7 days"
+    },
+    {
+      "name": "device_is_new_for_cust",
+      "type": "int",
+      "category": "device",
+      "encoding": "binary",
+      "description": "1 if device has never been seen with customer, else 0"
+    },
+    {
+      "name": "device_age_days",
+      "type": "float",
+      "category": "device",
+      "encoding": "continuous_standardized",
+      "description": "Device age in days since first observed in ecosystem"
+    },
+    {
+      "name": "pi_txn_count_prev",
+      "type": "int",
+      "category": "payment_instrument",
+      "encoding": "continuous_standardized",
+      "description": "Prior completed transactions on payment instrument token"
+    },
+    {
+      "name": "pi_distinct_cust_prev",
+      "type": "int",
+      "category": "payment_instrument",
+      "encoding": "continuous_standardized",
+      "description": "Distinct customer count on payment token prior to T"
+    },
+    {
+      "name": "pi_distinct_merchants_prev",
+      "type": "int",
+      "category": "payment_instrument",
+      "encoding": "continuous_standardized",
+      "description": "Distinct merchant count on payment token prior to T"
+    },
+    {
+      "name": "pi_velocity_count_1h",
+      "type": "int",
+      "category": "payment_instrument",
+      "encoding": "continuous_standardized",
+      "description": "Payment instrument transaction count in trailing 1 hour (card testing)"
+    },
+    {
+      "name": "pi_velocity_count_24h",
+      "type": "int",
+      "category": "payment_instrument",
+      "encoding": "continuous_standardized",
+      "description": "Payment instrument transaction count in trailing 24 hours"
+    },
+    {
+      "name": "pi_age_days",
+      "type": "float",
+      "category": "payment_instrument",
+      "encoding": "continuous_standardized",
+      "description": "Payment instrument age in days since first seen"
+    }
+  ],
+  "excluded_columns": [
+    {
+      "name": "transaction_id",
+      "reason": "Unique primary key row identifier; non-predictive entity ID"
+    },
+    {
+      "name": "timestamp",
+      "reason": "Chronological ordering metadata; represented via temporal features (hour, day, weekend, night)"
+    },
+    {
+      "name": "merchant_id",
+      "reason": "Raw high-cardinality entity ID; causes overfitting and memorization instead of behavioral modeling"
+    },
+    {
+      "name": "customer_id",
+      "reason": "Raw high-cardinality entity ID; causes overfitting and memorization instead of behavioral modeling"
+    },
+    {
+      "name": "device_id",
+      "reason": "Raw high-cardinality entity ID; captured via behavioral features (device_distinct_cust_prev, device_is_new_for_cust)"
+    },
+    {
+      "name": "payment_instrument_id",
+      "reason": "Raw high-cardinality entity ID; captured via behavioral features (pi_velocity_count_1h, pi_distinct_cust_prev)"
+    },
+    {
+      "name": "is_fraud",
+      "reason": "Observed noisy target label (evaluation/simulation metadata only)"
+    },
+    {
+      "name": "is_fraud_ground_truth",
+      "reason": "Primary target variable y; strictly excluded from feature matrix X"
+    },
+    {
+      "name": "fraud_archetype",
+      "reason": "Target simulation metadata used only for held-out archetype recall evaluation"
+    },
+    {
+      "name": "fraud_case_id",
+      "reason": "Target simulation metadata used only for evaluation"
+    }
+  ]
+}

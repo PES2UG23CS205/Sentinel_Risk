@@ -1,0 +1,5 @@
+Fraud_Archetype,Total_Frauds,Rules_Recall,LightGBM_Recall,Graph_Recall,Policy_v1_Recall,Key_Detection_Mechanism
+Card Testing Velocity,385,43.12%,99.22%,0.00%,100.00%,Hard card-velocity overrides (1h count >= 5) + ML confidence
+Account Takeover (ATO),125,0.00%,96.00%,0.00%,98.40%,Novel hardware tokens + customer baseline spending surges
+Coordinated Abuse Rings,210,0.00%,48.10%,100.00% (Case-Level),100.00%,Multi-account device/PI clustering & syndicate scoring
+Total Ecosystem,720,23.06%,97.92%,22.92%,99.72%,Unified Multi-Signal Precedence (ML + Graph + Rules)

@@ -1,0 +1,31 @@
+{
+  "model_name": "external_handbook_lightgbm",
+  "schema_version": "fraud_handbook_v1",
+  "total_features": 24,
+  "features": [
+    "amount",
+    "amount_log",
+    "hour_of_day",
+    "day_of_week",
+    "is_weekend",
+    "is_night",
+    "cust_txn_count_prev",
+    "cust_velocity_1h",
+    "cust_velocity_24h",
+    "cust_velocity_7d",
+    "cust_amount_sum_prev",
+    "cust_amount_mean_prev",
+    "cust_amount_std_prev",
+    "cust_amount_max_prev",
+    "cust_amount_ratio",
+    "cust_amount_zscore",
+    "terminal_txn_count_prev",
+    "terminal_velocity_1h",
+    "terminal_velocity_24h",
+    "terminal_velocity_7d",
+    "terminal_amount_mean_prev",
+    "terminal_amount_ratio",
+    "terminal_unique_cust_prev",
+    "is_new_terminal_for_cust"
+  ]
+}

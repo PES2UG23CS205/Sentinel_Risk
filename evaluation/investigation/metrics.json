@@ -1,0 +1,9 @@
+{
+  "total_benchmark_cases": 4,
+  "total_findings_evaluated": 8,
+  "evidence_grounding_rate_pct": "100.00%",
+  "citation_correctness_pct": "100.00%",
+  "hallucination_rate_pct": "0.00%",
+  "policy_preservation_pct": "100.00%",
+  "schema_validity_pct": "100.00%"
+}

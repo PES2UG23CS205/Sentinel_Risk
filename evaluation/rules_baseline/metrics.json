@@ -1,0 +1,218 @@
+{
+  "metrics": {
+    "total_transactions": 10179,
+    "true_positives": 28,
+    "false_positives": 35,
+    "true_negatives": 10013,
+    "false_negatives": 103,
+    "precision": 0.4444,
+    "recall": 0.2137,
+    "f1": 0.2887,
+    "precision_pct": "44.44%",
+    "recall_pct": "21.37%",
+    "f1_score": "28.87%",
+    "false_positive_rate": "0.35%",
+    "false_negative_rate": "78.63%",
+    "review_rate": "0.62%",
+    "fn_fraud_loss_inr": 633979.22,
+    "tp_fraud_avoided_inr": 30865.41,
+    "fp_friction_cost_inr": 5250.0,
+    "review_overhead_cost_inr": 1850.0,
+    "expected_loss_inr": 641079.22,
+    "frozen_threshold": 3.0
+  },
+  "rule_contributions": [
+    {
+      "rule_name": "rule_1_cust_amount_anomaly",
+      "display_name": "Customer Amount Anomaly",
+      "trigger_count": 195,
+      "trigger_rate": "1.92%",
+      "true_positives": 3,
+      "precision_when_triggered": "1.54%"
+    },
+    {
+      "rule_name": "rule_2_cust_velocity",
+      "display_name": "Customer Velocity",
+      "trigger_count": 25,
+      "trigger_rate": "0.25%",
+      "true_positives": 25,
+      "precision_when_triggered": "100.00%"
+    },
+    {
+      "rule_name": "rule_3_device_novelty",
+      "display_name": "Device Novelty Compound",
+      "trigger_count": 48,
+      "trigger_rate": "0.47%",
+      "true_positives": 20,
+      "precision_when_triggered": "41.67%"
+    },
+    {
+      "rule_name": "rule_4_pi_velocity",
+      "display_name": "Payment Instrument Velocity",
+      "trigger_count": 25,
+      "trigger_rate": "0.25%",
+      "true_positives": 25,
+      "precision_when_triggered": "100.00%"
+    },
+    {
+      "rule_name": "rule_5_merchant_anomaly",
+      "display_name": "Merchant Relative Anomaly",
+      "trigger_count": 71,
+      "trigger_rate": "0.70%",
+      "true_positives": 0,
+      "precision_when_triggered": "0.00%"
+    },
+    {
+      "rule_name": "rule_6_off_hour_anomaly",
+      "display_name": "Off-Hour Anomaly",
+      "trigger_count": 29,
+      "trigger_rate": "0.28%",
+      "true_positives": 13,
+      "precision_when_triggered": "44.83%"
+    }
+  ],
+  "archetype_performance": {
+    "account_takeover": {
+      "total_cases": 100,
+      "caught_cases": 3,
+      "missed_cases": 97,
+      "recall": "3.00%"
+    },
+    "card_testing": {
+      "total_cases": 31,
+      "caught_cases": 25,
+      "missed_cases": 6,
+      "recall": "80.65%"
+    },
+    "coordinated_ring": {
+      "total_cases": 0,
+      "caught_cases": 0,
+      "missed_cases": 0,
+      "recall": "0.00%"
+    }
+  },
+  "error_analysis": {
+    "false_positives_sample": [
+      {
+        "transaction_id": 57693,
+        "amount": 27759.41,
+        "cust_amount_to_mean_ratio": 7.0654,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 0,
+        "rule_score": 3,
+        "decision": "REVIEW"
+      },
+      {
+        "transaction_id": 57858,
+        "amount": 3109.38,
+        "cust_amount_to_mean_ratio": 4.5039,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1,
+        "rule_score": 4,
+        "decision": "REVIEW"
+      },
+      {
+        "transaction_id": 57868,
+        "amount": 3287.52,
+        "cust_amount_to_mean_ratio": 6.7944,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1,
+        "rule_score": 4,
+        "decision": "REVIEW"
+      },
+      {
+        "transaction_id": 58422,
+        "amount": 10232.97,
+        "cust_amount_to_mean_ratio": 5.5149,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 0,
+        "rule_score": 3,
+        "decision": "REVIEW"
+      },
+      {
+        "transaction_id": 58932,
+        "amount": 13323.42,
+        "cust_amount_to_mean_ratio": 4.7713,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 0,
+        "rule_score": 3,
+        "decision": "REVIEW"
+      }
+    ],
+    "false_negatives_sample": [
+      {
+        "transaction_id": 57901,
+        "amount": 6110.73,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 2.1255,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1,
+        "rule_score": 2,
+        "decision": "APPROVE"
+      },
+      {
+        "transaction_id": 57948,
+        "amount": 5000.93,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 1.5249,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 0,
+        "rule_score": 0,
+        "decision": "APPROVE"
+      },
+      {
+        "transaction_id": 58001,
+        "amount": 7722.71,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 2.2251,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 0,
+        "rule_score": 0,
+        "decision": "APPROVE"
+      },
+      {
+        "transaction_id": 58028,
+        "amount": 4915.14,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 1.2616,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 0,
+        "rule_score": 0,
+        "decision": "APPROVE"
+      },
+      {
+        "transaction_id": 58749,
+        "amount": 7707.14,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 3.0598,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1,
+        "rule_score": 2,
+        "decision": "APPROVE"
+      }
+    ]
+  },
+  "split_info": {
+    "train": {
+      "count": 47500,
+      "fraud_count": 545,
+      "fraud_prevalence": "1.15%",
+      "start_date": "2025-01-01 13:29:23",
+      "end_date": "2025-05-23 09:43:04"
+    },
+    "validation": {
+      "count": 10179,
+      "fraud_count": 44,
+      "fraud_prevalence": "0.43%",
+      "start_date": "2025-05-23 09:44:15",
+      "end_date": "2025-06-11 18:02:49"
+    },
+    "test": {
+      "count": 10179,
+      "fraud_count": 131,
+      "fraud_prevalence": "1.29%",
+      "start_date": "2025-06-11 18:06:20",
+      "end_date": "2025-06-30 23:58:38"
+    }
+  }
+}

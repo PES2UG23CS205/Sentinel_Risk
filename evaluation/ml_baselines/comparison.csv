@@ -1,0 +1,4 @@
+Model,Precision,Recall,F1 Score,PR-AUC,ROC-AUC,FPR,FNR,Review Rate,TP,FP,TN,FN,Expected Loss (INR),Fraud Loss Prevented (INR)
+Rules Baseline (Stage 4 Frozen),44.44%,21.37%,28.87%,--,--,0.35%,78.63%,0.62%,28,35,10013,103,641079.22,30865.41
+Logistic Regression,63.68%,92.37%,75.39%,93.36%,99.80%,0.69%,7.63%,1.87%,121,69,9979,10,85394.91,599299.72
+LightGBM,97.73%,98.47%,98.10%,99.92%,100.00%,0.03%,1.53%,1.30%,129,3,10045,2,16255.32,655639.31

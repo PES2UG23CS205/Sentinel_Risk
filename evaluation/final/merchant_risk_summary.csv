@@ -1,0 +1,5 @@
+merchant_id,category,risk_score,risk_level,fraud_rate_pct,trend,alerts
+MERCH_ELECTRONICS_05,Electronics,0.84,HIGH,4.8,DETERIORATING,2
+MERCH_GAMING_02,Gaming,0.72,HIGH,3.6,DETERIORATING,2
+MERCH_DIGITAL_01,Digital Goods,0.54,MEDIUM,1.8,STABLE,1
+MERCH_GROCERY_01,Grocery,0.08,LOW,0.1,IMPROVING,0

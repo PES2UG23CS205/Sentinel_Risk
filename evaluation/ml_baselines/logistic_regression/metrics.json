@@ -1,0 +1,195 @@
+{
+  "metrics": {
+    "total_transactions": 10179,
+    "true_positives": 121,
+    "false_positives": 69,
+    "true_negatives": 9979,
+    "false_negatives": 10,
+    "precision": 0.6368,
+    "recall": 0.9237,
+    "f1": 0.7539,
+    "precision_pct": "63.68%",
+    "recall_pct": "92.37%",
+    "f1_score": "75.39%",
+    "false_positive_rate": "0.69%",
+    "false_negative_rate": "7.63%",
+    "review_rate": "1.87%",
+    "fn_fraud_loss_inr": 65544.91,
+    "tp_fraud_avoided_inr": 599299.72,
+    "fp_friction_cost_inr": 10350.0,
+    "review_overhead_cost_inr": 9500.0,
+    "expected_loss_inr": 85394.91,
+    "model_name": "Logistic Regression",
+    "frozen_threshold": 0.6,
+    "pr_auc": 0.9336,
+    "roc_auc": 0.998,
+    "pr_auc_pct": "93.36%",
+    "roc_auc_pct": "99.80%",
+    "ato_recall": "90.00%",
+    "card_testing_recall": "100.00%",
+    "coordinated_ring_recall": "0.00%"
+  },
+  "archetype_performance": {
+    "account_takeover": {
+      "total_cases": 100,
+      "caught_cases": 90,
+      "missed_cases": 10,
+      "recall": "90.00%"
+    },
+    "card_testing": {
+      "total_cases": 31,
+      "caught_cases": 31,
+      "missed_cases": 0,
+      "recall": "100.00%"
+    },
+    "coordinated_ring": {
+      "total_cases": 0,
+      "caught_cases": 0,
+      "missed_cases": 0,
+      "recall": "0.00%"
+    }
+  },
+  "calibration": [
+    {
+      "bucket": "[0.0, 0.1)",
+      "count": 9914,
+      "mean_predicted_prob": "0.06%",
+      "observed_fraud_rate": "0.07%"
+    },
+    {
+      "bucket": "[0.1, 0.2)",
+      "count": 22,
+      "mean_predicted_prob": "14.50%",
+      "observed_fraud_rate": "4.55%"
+    },
+    {
+      "bucket": "[0.2, 0.3)",
+      "count": 15,
+      "mean_predicted_prob": "25.07%",
+      "observed_fraud_rate": "0.00%"
+    },
+    {
+      "bucket": "[0.3, 0.4)",
+      "count": 15,
+      "mean_predicted_prob": "35.77%",
+      "observed_fraud_rate": "13.33%"
+    },
+    {
+      "bucket": "[0.4, 0.5)",
+      "count": 14,
+      "mean_predicted_prob": "45.13%",
+      "observed_fraud_rate": "0.00%"
+    },
+    {
+      "bucket": "[0.5, 0.6)",
+      "count": 9,
+      "mean_predicted_prob": "55.25%",
+      "observed_fraud_rate": "0.00%"
+    },
+    {
+      "bucket": "[0.6, 0.7)",
+      "count": 12,
+      "mean_predicted_prob": "65.04%",
+      "observed_fraud_rate": "8.33%"
+    },
+    {
+      "bucket": "[0.7, 0.8)",
+      "count": 14,
+      "mean_predicted_prob": "74.52%",
+      "observed_fraud_rate": "7.14%"
+    },
+    {
+      "bucket": "[0.8, 0.9)",
+      "count": 9,
+      "mean_predicted_prob": "85.55%",
+      "observed_fraud_rate": "0.00%"
+    },
+    {
+      "bucket": "[0.9, 1.0)",
+      "count": 155,
+      "mean_predicted_prob": "98.97%",
+      "observed_fraud_rate": "76.77%"
+    }
+  ],
+  "error_analysis": {
+    "false_positives_sample": [
+      {
+        "amount": 601.03,
+        "predicted_prob": 0.6281,
+        "cust_amount_to_mean_ratio": 1.0,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1
+      },
+      {
+        "amount": 4102.68,
+        "predicted_prob": 0.742,
+        "cust_amount_to_mean_ratio": 1.46,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 0
+      },
+      {
+        "amount": 1272.24,
+        "predicted_prob": 0.9184,
+        "cust_amount_to_mean_ratio": 1.72,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 0
+      },
+      {
+        "amount": 2411.07,
+        "predicted_prob": 0.6318,
+        "cust_amount_to_mean_ratio": 1.0,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1
+      },
+      {
+        "amount": 939.76,
+        "predicted_prob": 0.9886,
+        "cust_amount_to_mean_ratio": 0.49,
+        "velocity_txn_count_1h": 1,
+        "device_is_new_for_cust": 0
+      }
+    ],
+    "false_negatives_sample": [
+      {
+        "amount": 8478.77,
+        "predicted_prob": 0.1883,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 2.42,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1
+      },
+      {
+        "amount": 3150.66,
+        "predicted_prob": 0.3967,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 1.3,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1
+      },
+      {
+        "amount": 5306.48,
+        "predicted_prob": 0.001,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 1.8,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1
+      },
+      {
+        "amount": 5111.28,
+        "predicted_prob": 0.0692,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 3.0,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1
+      },
+      {
+        "amount": 3190.7,
+        "predicted_prob": 0.0583,
+        "fraud_archetype": "account_takeover",
+        "cust_amount_to_mean_ratio": 3.86,
+        "velocity_txn_count_1h": 0,
+        "device_is_new_for_cust": 1
+      }
+    ]
+  }
+}

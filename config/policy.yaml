@@ -1,0 +1,51 @@
+# SentinelRisk — Cost-Sensitive Multi-Signal Risk Policy Configuration
+# Policy Version: sentinelrisk-policy-v1
+
+policy_version: "sentinelrisk-policy-v1"
+description: "Multi-signal risk decision policy integrating LightGBM ML, Entity Graph intelligence, and deterministic rules."
+
+# --- Machine Learning Probabilities (LightGBM) ---
+ml_thresholds:
+  # Validation-optimized operating threshold for step-up challenge (mild anomaly)
+  challenge_threshold: 0.05
+  # Threshold for human review triage (complex/unresolved anomaly)
+  review_threshold: 0.25
+  # High-confidence threshold for immediate hold / intervention
+  hold_threshold: 0.50
+
+# --- Entity Graph & Ring Detection (Stage 6) ---
+graph_thresholds:
+  # Threshold for flagging coordinated ring activity for review
+  ring_score_review: 0.50
+  # Threshold for immediate hold on dense multi-account syndicates
+  ring_score_hold: 0.80
+  # Minimum connected customers required to form a syndicate candidate
+  min_ring_customers: 3
+
+# --- Deterministic Rule Overrides (Stage 4) ---
+rule_conditions:
+  # Instant HOLD on extreme card-testing velocity bursts (bot attack)
+  severe_card_velocity_1h: 5
+  # Moderate velocity triggering step-up challenge
+  moderate_card_velocity_1h: 3
+  # Severe customer amount anomaly triggering review
+  severe_cust_amount_ratio: 6.0
+  moderate_cust_amount_ratio: 4.0
+
+# --- Business Cost Assumptions (INR) ---
+cost_model:
+  # Customer friction and support cost per false positive hard decline
+  false_positive_cost: 150.0
+  # Customer friction cost per automated step-up challenge (OTP/Biometric)
+  challenge_friction_cost: 35.0
+  # Operational cost per manual review triage
+  review_cost: 50.0
+  # Multiplier on transaction amount lost when fraud is approved (FN)
+  fraud_loss_multiplier: 1.0
+  # Customer friction cost per false hold (higher friction than challenge)
+  hold_friction_cost: 250.0
+
+# --- Operational Constraints ---
+operational_constraints:
+  max_review_rate: 0.05   # 5.0% maximum operational review capacity
+  max_hold_rate: 0.02     # 2.0% maximum hold rate

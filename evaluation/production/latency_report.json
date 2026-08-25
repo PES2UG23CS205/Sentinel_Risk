@@ -1,0 +1,16 @@
+{
+  "total_requests": 1000,
+  "successful_requests": 1000,
+  "failed_requests": 0,
+  "error_rate_pct": 0.0,
+  "total_elapsed_sec": 0.0558,
+  "throughput_rps": 17929.05,
+  "latencies_ms": {
+    "p50": 0.046,
+    "p95": 0.081,
+    "p99": 0.136,
+    "mean": 0.053,
+    "min": 0.042,
+    "max": 1.912
+  }
+}

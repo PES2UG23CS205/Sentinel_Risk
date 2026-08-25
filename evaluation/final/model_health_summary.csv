@@ -1,0 +1,5 @@
+feature,baseline_mean,current_mean,psi,status
+amount,1140.5,1180.2,0.0142,NORMAL
+cust_velocity_1h,1.15,1.22,0.021,NORMAL
+cust_amount_ratio,1.05,1.12,0.0185,NORMAL
+risk_score,0.0128,0.0135,0.0094,NORMAL

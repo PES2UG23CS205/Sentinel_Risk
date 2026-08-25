@@ -1,0 +1,5 @@
+System,Precision,Recall,F1,Review Rate,Hold Rate,Expected Loss (INR),Fraud Prevented (INR)
+Stage 4 Rules Baseline,44.44%,21.37%,28.87%,0.62%,0.00%,641079.22,30865.41
+Stage 5 Logistic Regression,63.68%,92.37%,75.39%,1.87%,0.00%,85394.91,599299.72
+Stage 5 LightGBM,97.73%,98.47%,98.10%,1.30%,0.00%,16255.32,655639.31
+Stage 7 Policy v1 (sentinelrisk-policy-v1),60.00%,98.47%,74.57%,0.84%,0.98%,26355.32,655639.31

@@ -1,0 +1,525 @@
+{
+  "BENCH-CARD-001": {
+    "case_id": "BENCH-CARD-001",
+    "policy_decision": "HOLD",
+    "policy_version": "sentinelrisk-policy-v1",
+    "risk_summary": "Case BENCH-CARD-001 intercepted under policy sentinelrisk-policy-v1 with decision HOLD. ML fraud probability: 0.992, Graph ring score: 0.00.",
+    "evidence": [
+      {
+        "evidence_id": "EVID-001",
+        "evidence_type": "transaction",
+        "source": "transaction_features",
+        "timestamp": "2025-05-10 02:14:00",
+        "value": 85.0,
+        "description": "Transaction amount is INR 85.00 at merchant MERCH_DIGITAL_01."
+      },
+      {
+        "evidence_id": "EVID-002",
+        "evidence_type": "ml_score",
+        "source": "lightgbm_model",
+        "timestamp": "2025-05-10 02:14:00",
+        "value": 0.992,
+        "description": "Supervised LightGBM calibrated fraud probability is 0.9920."
+      },
+      {
+        "evidence_id": "EVID-003",
+        "evidence_type": "velocity",
+        "source": "transaction_features",
+        "timestamp": "2025-05-10 02:14:00",
+        "value": 7,
+        "description": "Payment instrument velocity is 7 transactions in the past 1 hour (Customer 1h velocity: 7)."
+      },
+      {
+        "evidence_id": "EVID-004",
+        "evidence_type": "device_novelty",
+        "source": "transaction_features",
+        "timestamp": "2025-05-10 02:14:00",
+        "value": 1,
+        "description": "Device DEV_BOT_99 has never been previously used by customer CUST_BOT_1."
+      },
+      {
+        "evidence_id": "EVID-005",
+        "evidence_type": "benign_indicator",
+        "source": "entity_graph",
+        "timestamp": "2025-05-10 02:14:00",
+        "value": 1,
+        "description": "Device sharing is limited to 1 customer accounts with strictly independent payment instruments (consistent with legitimate household sharing)."
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "FIND-001",
+        "statement": "Supervised LightGBM model detected severe behavioral risk with calibrated fraud probability of 0.992.",
+        "evidence_ids": [
+          "EVID-002"
+        ],
+        "confidence": "HIGH",
+        "classification": "SUPPORTED"
+      },
+      {
+        "finding_id": "FIND-002",
+        "statement": "High transaction velocity observed on payment instrument within the past 1-hour window.",
+        "evidence_ids": [
+          "EVID-003"
+        ],
+        "confidence": "HIGH",
+        "classification": "SUPPORTED"
+      },
+      {
+        "finding_id": "FIND-003",
+        "statement": "Transaction initiated from an unrecognized device token.",
+        "evidence_ids": [
+          "EVID-004"
+        ],
+        "confidence": "MEDIUM",
+        "classification": "SUPPORTED"
+      }
+    ],
+    "suspicious_signals": [
+      "High-confidence ML risk score (0.992)",
+      "Rapid authorization burst on payment instrument",
+      "New unrecognized device"
+    ],
+    "benign_signals": [
+      "Device sharing is limited to 1 customer accounts with strictly independent payment instruments (consistent with legitimate household sharing)."
+    ],
+    "related_entities": {
+      "customers": [
+        "CUST_BOT_1"
+      ],
+      "devices": [
+        "DEV_BOT_99"
+      ],
+      "payment_instruments": [
+        "PI_STOLEN_88"
+      ],
+      "merchants": [
+        "MERCH_DIGITAL_01"
+      ]
+    },
+    "timeline": [
+      {
+        "timestamp": "2025-05-10 02:14:00",
+        "event_type": "VELOCITY_BURST",
+        "description": "Payment instrument PI_STOLEN_88 recorded 7 transactions in 60 minutes.",
+        "entity_id": "PI_STOLEN_88"
+      },
+      {
+        "timestamp": "2025-05-10 02:14:00",
+        "event_type": "UNRECOGNIZED_DEVICE_SEEN",
+        "description": "First time device DEV_BOT_99 observed for customer CUST_BOT_1.",
+        "entity_id": "DEV_BOT_99"
+      },
+      {
+        "timestamp": "2025-05-10 02:14:00",
+        "event_type": "AUTHORIZATION_ATTEMPT",
+        "description": "Customer CUST_BOT_1 initiated authorization of INR 85.00 on device DEV_BOT_99.",
+        "entity_id": "CUST_BOT_1"
+      }
+    ],
+    "hypotheses": [
+      {
+        "hypothesis_id": "HYP-001",
+        "hypothesis": "Account Takeover (ATO): Unauthorized party accessing customer profile via new device.",
+        "supporting_evidence_ids": [
+          "EVID-004",
+          "EVID-002"
+        ],
+        "contradicting_evidence_ids": [
+          "EVID-005"
+        ],
+        "confidence": "HIGH"
+      },
+      {
+        "hypothesis_id": "HYP-002",
+        "hypothesis": "Card Testing / Automated Velocity Attack: Bot script testing stolen payment instrument.",
+        "supporting_evidence_ids": [
+          "EVID-003",
+          "EVID-002"
+        ],
+        "contradicting_evidence_ids": [],
+        "confidence": "HIGH"
+      }
+    ],
+    "uncertainty": "Device sharing can occur legitimately in family households or shared workspaces. Velocity spikes may occasionally reflect rapid user re-attempts following temporary network drops.",
+    "recommended_next_steps": [
+      "Verify payment instrument authorization frequency across merchants."
+    ],
+    "analyst_summary": "Transaction #TXN_CT_101 (INR 85.00) was flagged for HOLD. Key findings indicate 3 suspicious risk signals and 1 benign indicators. Primary hypothesis: Account Takeover (ATO): Unauthorized party accessing customer profile via new device..",
+    "model_metadata": {
+      "provider": "MockInvestigationLLM",
+      "model_version": "deterministic-v1",
+      "evidence_items_count": 5,
+      "citations_valid": true
+    },
+    "investigation_status": "COMPLETED"
+  },
+  "BENCH-ATO-002": {
+    "case_id": "BENCH-ATO-002",
+    "policy_decision": "HOLD",
+    "policy_version": "sentinelrisk-policy-v1",
+    "risk_summary": "Case BENCH-ATO-002 intercepted under policy sentinelrisk-policy-v1 with decision HOLD. ML fraud probability: 0.965, Graph ring score: 0.00.",
+    "evidence": [
+      {
+        "evidence_id": "EVID-001",
+        "evidence_type": "transaction",
+        "source": "transaction_features",
+        "timestamp": "2025-05-12 23:45:00",
+        "value": 22500.0,
+        "description": "Transaction amount is INR 22500.00 at merchant MERCH_LUXURY_07."
+      },
+      {
+        "evidence_id": "EVID-002",
+        "evidence_type": "ml_score",
+        "source": "lightgbm_model",
+        "timestamp": "2025-05-12 23:45:00",
+        "value": 0.965,
+        "description": "Supervised LightGBM calibrated fraud probability is 0.9650."
+      },
+      {
+        "evidence_id": "EVID-003",
+        "evidence_type": "customer_baseline",
+        "source": "transaction_features",
+        "timestamp": "2025-05-12 23:45:00",
+        "value": 5.4,
+        "description": "Transaction amount is 5.4x the customer's historical mean spend (Z-score: 3.80)."
+      },
+      {
+        "evidence_id": "EVID-004",
+        "evidence_type": "device_novelty",
+        "source": "transaction_features",
+        "timestamp": "2025-05-12 23:45:00",
+        "value": 1,
+        "description": "Device DEV_ATTACKER_13 has never been previously used by customer CUST_VICTIM_42."
+      },
+      {
+        "evidence_id": "EVID-005",
+        "evidence_type": "benign_indicator",
+        "source": "entity_graph",
+        "timestamp": "2025-05-12 23:45:00",
+        "value": 1,
+        "description": "Device sharing is limited to 1 customer accounts with strictly independent payment instruments (consistent with legitimate household sharing)."
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "FIND-001",
+        "statement": "Supervised LightGBM model detected severe behavioral risk with calibrated fraud probability of 0.965.",
+        "evidence_ids": [
+          "EVID-002"
+        ],
+        "confidence": "HIGH",
+        "classification": "SUPPORTED"
+      },
+      {
+        "finding_id": "FIND-002",
+        "statement": "Transaction was executed on an unrecognized device accompanied by spending significantly above customer historical baseline.",
+        "evidence_ids": [
+          "EVID-004",
+          "EVID-003"
+        ],
+        "confidence": "HIGH",
+        "classification": "SUPPORTED"
+      }
+    ],
+    "suspicious_signals": [
+      "High-confidence ML risk score (0.965)",
+      "Unrecognized device paired with spending surge"
+    ],
+    "benign_signals": [
+      "Device sharing is limited to 1 customer accounts with strictly independent payment instruments (consistent with legitimate household sharing)."
+    ],
+    "related_entities": {
+      "customers": [
+        "CUST_VICTIM_42"
+      ],
+      "devices": [
+        "DEV_ATTACKER_13"
+      ],
+      "payment_instruments": [
+        "PI_VICTIM_CARD_42"
+      ],
+      "merchants": [
+        "MERCH_LUXURY_07"
+      ]
+    },
+    "timeline": [
+      {
+        "timestamp": "2025-05-12 23:45:00",
+        "event_type": "UNRECOGNIZED_DEVICE_SEEN",
+        "description": "First time device DEV_ATTACKER_13 observed for customer CUST_VICTIM_42.",
+        "entity_id": "DEV_ATTACKER_13"
+      },
+      {
+        "timestamp": "2025-05-12 23:45:00",
+        "event_type": "AUTHORIZATION_ATTEMPT",
+        "description": "Customer CUST_VICTIM_42 initiated authorization of INR 22500.00 on device DEV_ATTACKER_13.",
+        "entity_id": "CUST_VICTIM_42"
+      }
+    ],
+    "hypotheses": [
+      {
+        "hypothesis_id": "HYP-001",
+        "hypothesis": "Account Takeover (ATO): Unauthorized party accessing customer profile via new device.",
+        "supporting_evidence_ids": [
+          "EVID-004",
+          "EVID-003",
+          "EVID-002"
+        ],
+        "contradicting_evidence_ids": [
+          "EVID-005"
+        ],
+        "confidence": "HIGH"
+      }
+    ],
+    "uncertainty": "Device sharing can occur legitimately in family households or shared workspaces. Velocity spikes may occasionally reflect rapid user re-attempts following temporary network drops.",
+    "recommended_next_steps": [
+      "Contact customer via registered out-of-band channel to confirm transaction intent."
+    ],
+    "analyst_summary": "Transaction #TXN_ATO_202 (INR 22500.00) was flagged for HOLD. Key findings indicate 2 suspicious risk signals and 1 benign indicators. Primary hypothesis: Account Takeover (ATO): Unauthorized party accessing customer profile via new device..",
+    "model_metadata": {
+      "provider": "MockInvestigationLLM",
+      "model_version": "deterministic-v1",
+      "evidence_items_count": 5,
+      "citations_valid": true
+    },
+    "investigation_status": "COMPLETED"
+  },
+  "BENCH-RING-003": {
+    "case_id": "BENCH-RING-003",
+    "policy_decision": "HOLD",
+    "policy_version": "sentinelrisk-policy-v1",
+    "risk_summary": "Case BENCH-RING-003 intercepted under policy sentinelrisk-policy-v1 with decision HOLD. ML fraud probability: 0.210, Graph ring score: 0.85.",
+    "evidence": [
+      {
+        "evidence_id": "EVID-001",
+        "evidence_type": "transaction",
+        "source": "transaction_features",
+        "timestamp": "2025-04-14 05:08:04",
+        "value": 3400.0,
+        "description": "Transaction amount is INR 3400.00 at merchant MERCH_ELECTRONICS_04."
+      },
+      {
+        "evidence_id": "EVID-002",
+        "evidence_type": "ml_score",
+        "source": "lightgbm_model",
+        "timestamp": "2025-04-14 05:08:04",
+        "value": 0.21,
+        "description": "Supervised LightGBM calibrated fraud probability is 0.2100."
+      },
+      {
+        "evidence_id": "EVID-003",
+        "evidence_type": "graph_topology",
+        "source": "entity_graph",
+        "timestamp": "2025-04-14 05:08:04",
+        "value": 0.85,
+        "description": "Entity graph ring score is 0.85 (Candidate: 1). Device DEV_SHARED_RING_01 is associated with 5 customer accounts."
+      },
+      {
+        "evidence_id": "EVID-004",
+        "evidence_type": "graph_topology",
+        "source": "entity_graph",
+        "timestamp": "2025-04-14 05:08:04",
+        "value": 5,
+        "description": "Payment instrument PI_SHARED_CARD_01 is shared across 5 distinct customer accounts."
+      },
+      {
+        "evidence_id": "EVID-005",
+        "evidence_type": "benign_indicator",
+        "source": "transaction_features",
+        "timestamp": "2025-04-14 05:08:04",
+        "value": 1.1,
+        "description": "Transaction spend is within normal historical customer baseline (1.1x average)."
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "FIND-001",
+        "statement": "Supervised ML model identified elevated transaction risk (probability: 0.210).",
+        "evidence_ids": [
+          "EVID-002"
+        ],
+        "confidence": "MEDIUM",
+        "classification": "SUPPORTED"
+      },
+      {
+        "finding_id": "FIND-002",
+        "statement": "Entity graph analysis identified multi-account infrastructure sharing with ring score of 0.85.",
+        "evidence_ids": [
+          "EVID-003",
+          "EVID-004"
+        ],
+        "confidence": "HIGH",
+        "classification": "SUPPORTED"
+      }
+    ],
+    "suspicious_signals": [
+      "Elevated ML risk score (0.210)",
+      "Coordinated syndicate infrastructure sharing (Ring score: 0.85)"
+    ],
+    "benign_signals": [
+      "Transaction spend is within normal historical customer baseline (1.1x average)."
+    ],
+    "related_entities": {
+      "customers": [
+        "CUST_RING_05"
+      ],
+      "devices": [
+        "DEV_SHARED_RING_01"
+      ],
+      "payment_instruments": [
+        "PI_SHARED_CARD_01"
+      ],
+      "merchants": [
+        "MERCH_ELECTRONICS_04"
+      ]
+    },
+    "timeline": [
+      {
+        "timestamp": "2025-04-14 05:08:04",
+        "event_type": "AUTHORIZATION_ATTEMPT",
+        "description": "Customer CUST_RING_05 initiated authorization of INR 3400.00 on device DEV_SHARED_RING_01.",
+        "entity_id": "CUST_RING_05"
+      }
+    ],
+    "hypotheses": [
+      {
+        "hypothesis_id": "HYP-001",
+        "hypothesis": "Coordinated Multi-Accounting Syndicate: Collusive ring sharing devices and payment credentials.",
+        "supporting_evidence_ids": [
+          "EVID-003",
+          "EVID-004"
+        ],
+        "contradicting_evidence_ids": [
+          "EVID-005"
+        ],
+        "confidence": "HIGH"
+      }
+    ],
+    "uncertainty": "Device sharing can occur legitimately in family households or shared workspaces. Velocity spikes may occasionally reflect rapid user re-attempts following temporary network drops.",
+    "recommended_next_steps": [
+      "Inspect connected customer accounts and shared hardware tokens in entity graph."
+    ],
+    "analyst_summary": "Transaction #TXN_RING_303 (INR 3400.00) was flagged for HOLD. Key findings indicate 2 suspicious risk signals and 1 benign indicators. Primary hypothesis: Coordinated Multi-Accounting Syndicate: Collusive ring sharing devices and payment credentials..",
+    "model_metadata": {
+      "provider": "MockInvestigationLLM",
+      "model_version": "deterministic-v1",
+      "evidence_items_count": 5,
+      "citations_valid": true
+    },
+    "investigation_status": "COMPLETED"
+  },
+  "BENCH-LEGIT-004": {
+    "case_id": "BENCH-LEGIT-004",
+    "policy_decision": "REVIEW",
+    "policy_version": "sentinelrisk-policy-v1",
+    "risk_summary": "Case BENCH-LEGIT-004 intercepted under policy sentinelrisk-policy-v1 with decision REVIEW. ML fraud probability: 0.065, Graph ring score: 0.00.",
+    "evidence": [
+      {
+        "evidence_id": "EVID-001",
+        "evidence_type": "transaction",
+        "source": "transaction_features",
+        "timestamp": "2025-05-18 16:30:00",
+        "value": 750.0,
+        "description": "Transaction amount is INR 750.00 at merchant MERCH_GROCERY_02."
+      },
+      {
+        "evidence_id": "EVID-002",
+        "evidence_type": "ml_score",
+        "source": "lightgbm_model",
+        "timestamp": "2025-05-18 16:30:00",
+        "value": 0.065,
+        "description": "Supervised LightGBM calibrated fraud probability is 0.0650."
+      },
+      {
+        "evidence_id": "EVID-003",
+        "evidence_type": "graph_topology",
+        "source": "entity_graph",
+        "timestamp": "2025-05-18 16:30:00",
+        "value": 0.0,
+        "description": "Entity graph ring score is 0.00 (Candidate: 0). Device DEV_HOME_TABLET is associated with 2 customer accounts."
+      },
+      {
+        "evidence_id": "EVID-004",
+        "evidence_type": "benign_indicator",
+        "source": "entity_graph",
+        "timestamp": "2025-05-18 16:30:00",
+        "value": 2,
+        "description": "Device sharing is limited to 2 customer accounts with strictly independent payment instruments (consistent with legitimate household sharing)."
+      },
+      {
+        "evidence_id": "EVID-005",
+        "evidence_type": "benign_indicator",
+        "source": "transaction_features",
+        "timestamp": "2025-05-18 16:30:00",
+        "value": 1.0,
+        "description": "Transaction spend is within normal historical customer baseline (1.0x average)."
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "FIND-001",
+        "statement": "Supervised ML model identified elevated transaction risk (probability: 0.065).",
+        "evidence_ids": [
+          "EVID-002"
+        ],
+        "confidence": "MEDIUM",
+        "classification": "SUPPORTED"
+      }
+    ],
+    "suspicious_signals": [
+      "Elevated ML risk score (0.065)"
+    ],
+    "benign_signals": [
+      "Device sharing is limited to 2 customer accounts with strictly independent payment instruments (consistent with legitimate household sharing).",
+      "Transaction spend is within normal historical customer baseline (1.0x average)."
+    ],
+    "related_entities": {
+      "customers": [
+        "CUST_PARENT_01"
+      ],
+      "devices": [
+        "DEV_HOME_TABLET"
+      ],
+      "payment_instruments": [
+        "PI_PARENT_CARD"
+      ],
+      "merchants": [
+        "MERCH_GROCERY_02"
+      ]
+    },
+    "timeline": [
+      {
+        "timestamp": "2025-05-18 16:30:00",
+        "event_type": "AUTHORIZATION_ATTEMPT",
+        "description": "Customer CUST_PARENT_01 initiated authorization of INR 750.00 on device DEV_HOME_TABLET.",
+        "entity_id": "CUST_PARENT_01"
+      }
+    ],
+    "hypotheses": [
+      {
+        "hypothesis_id": "HYP-001",
+        "hypothesis": "Legitimate Activity: Shared household device or benign baseline variation.",
+        "supporting_evidence_ids": [
+          "EVID-004",
+          "EVID-005"
+        ],
+        "contradicting_evidence_ids": [],
+        "confidence": "HIGH"
+      }
+    ],
+    "uncertainty": "Device sharing can occur legitimately in family households or shared workspaces. Velocity spikes may occasionally reflect rapid user re-attempts following temporary network drops.",
+    "recommended_next_steps": [
+      "Review recent authorization history for customer account.",
+      "Monitor device token for further multi-customer associations."
+    ],
+    "analyst_summary": "Transaction #TXN_LEGIT_404 (INR 750.00) was flagged for REVIEW. Key findings indicate 1 suspicious risk signals and 2 benign indicators. Primary hypothesis: Legitimate Activity: Shared household device or benign baseline variation..",
+    "model_metadata": {
+      "provider": "MockInvestigationLLM",
+      "model_version": "deterministic-v1",
+      "evidence_items_count": 5,
+      "citations_valid": true
+    },
+    "investigation_status": "COMPLETED"
+  }
+}

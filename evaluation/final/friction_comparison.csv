@@ -1,0 +1,3 @@
+policy_architecture,approval_rate_pct,review_queue_rate_pct,hold_rate_pct,total_cost_inr,analyst_headcount_reduction_pct
+Tri-State (Approve/Review/Hold),96.82,1.9,1.28,48055.32,0.0
+Quad-State (Approve/Challenge/Review/Hold),96.74,0.83,1.28,30385.32,56.5

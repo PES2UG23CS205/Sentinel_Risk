@@ -1,0 +1,23 @@
+{
+  "dataset_version": "v1",
+  "seed": 42,
+  "num_merchants": 1500,
+  "num_customers": 40000,
+  "num_devices": 52354,
+  "num_payment_instruments": 53869,
+  "num_transactions": 67858,
+  "num_disputes": 818,
+  "fraud_transactions_ground_truth": 720,
+  "fraud_transactions_observed": 2051,
+  "fraud_prevalence": 0.0106,
+  "fraud_prevalence_pct": "1.06%",
+  "account_takeover_count": 125,
+  "card_testing_count": 385,
+  "coordinated_ring_count": 210,
+  "distinct_rings": 15,
+  "avg_transaction_amount": 2614.17,
+  "median_transaction_amount": 1876.26,
+  "sim_start": "2025-01-01T00:00:00+00:00",
+  "sim_end": "2025-06-30T23:59:59+00:00",
+  "generated_at": "2026-08-22T20:11:59.740873+00:00"
+}

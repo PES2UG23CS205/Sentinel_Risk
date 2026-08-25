@@ -1,0 +1,69 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+venv/
+env/
+.venv/
+
+# SQLite & Runtime DB
+*.db
+*.sqlite3
+*.sqlite
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Node.js & Frontend
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing & Coverage
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+*.log
+
+# Project bundles & large archives
+*.zip
+*.tar.gz
+sentinelrisk_project_bundle.zip
+
+# Large External Datasets (100MB+ raw pickles)
+data/external/fraud_handbook/data/
+*.pkl
+
+# Pre-trained ML Models (Whitelist small lightweight models < 1MB)
+*.h5
+*.onnx
+*.bin
+*.model
+*.joblib
+!ml/models/**/*.joblib
+!ml/models/**/*.json

@@ -1,0 +1,41 @@
+# SentinelRisk — Model & Feature Drift Monitoring Configuration
+# Monitoring Schema: sentinelrisk-monitoring-v1
+
+monitoring_version: "sentinelrisk-monitoring-v1"
+description: "Statistical feature distribution and population stability index (PSI) monitoring."
+
+# --- PSI Categorization Thresholds ---
+psi_thresholds:
+  normal_threshold: 0.10     # PSI < 0.10: Normal baseline stability
+  watch_threshold: 0.25      # 0.10 <= PSI < 0.25: Slight shift / Watchlist
+  drift_threshold: 0.25      # PSI >= 0.25: Significant population drift detected
+
+# --- Monitored Signals & Features ---
+monitored_features:
+  - name: "amount"
+    description: "Transaction amount value"
+    bins: [0, 500, 1500, 5000, 15000, 50000, 1000000]
+  - name: "cust_velocity_1h"
+    description: "Point-in-time customer 1-hour transaction velocity"
+    bins: [0, 1, 2, 3, 5, 10, 100]
+  - name: "cust_amount_ratio"
+    description: "Ratio of current transaction amount to historical customer mean"
+    bins: [0.0, 0.8, 1.2, 2.0, 4.0, 6.0, 50.0]
+  - name: "transaction_hour"
+    description: "Hour of transaction initiation (0 to 23)"
+    bins: [0, 6, 12, 18, 24]
+  - name: "risk_score"
+    description: "Model calibrated fraud risk score"
+    bins: [0.0, 0.05, 0.25, 0.50, 0.80, 1.0]
+
+# --- Historical Training Baselines (Synthetic Frozen Ecosystem) ---
+training_baselines:
+  model_name: "primary_synthetic_lightgbm"
+  model_version: "lightgbm-sentinel-v1"
+  training_date: "2025-06-11"
+  training_sample_size: 47499
+  fraud_rate_pct: 1.28
+  approval_rate_pct: 96.74
+  challenge_rate_pct: 1.16
+  review_rate_pct: 0.83
+  hold_rate_pct: 1.28

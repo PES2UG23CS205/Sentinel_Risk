@@ -1,0 +1,5 @@
+archetype,sample_count,detection_rate_pct,primary_trigger,avg_latency_ms
+Account Takeover (ATO),48,100.0,HOLD (ML >= 0.50),0.06
+Card Testing Burst,52,98.08,HOLD (Card Velocity Burst),0.04
+Coordinated Abuse Ring,31,96.77,HOLD (Graph Ring >= 0.80),0.09
+Legitimate Spenders,10048,99.18,APPROVE (Frictionless),0.04
