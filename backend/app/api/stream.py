@@ -20,11 +20,12 @@ from backend.app.ingestion.schema import NormalizedTransaction, SchemaMapping, i
 from backend.app.ingestion.validator import DatasetValidator, ValidationReport
 from backend.app.ingestion.session_manager import LiveSessionManager
 from backend.app.external_data.fraud_handbook_loader import FraudHandbookLoader
+from backend.app.api.cases import case_manager
 
 router = APIRouter(prefix="/stream", tags=["Streaming & Ingestion"])
 
-# Global session manager instance
-live_session_manager = LiveSessionManager()
+# Global session manager instance sharing the central case_manager
+live_session_manager = LiveSessionManager(case_manager=case_manager)
 fraud_handbook_loader = FraudHandbookLoader()
 
 

@@ -56,6 +56,37 @@ def get_db():
         db.close()
 
 
+def _migrate_sqlite_schema(target_engine):
+    """Safely apply schema additions for SQLite tables if they exist with older schemas."""
+    try:
+        with target_engine.connect() as conn:
+            # Check cases table
+            cursor = conn.connection.cursor()
+            existing_tables = [r[0] for r in cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
+            if "cases" in existing_tables:
+                existing_cols = [c[1] for c in cursor.execute("PRAGMA table_info(cases)").fetchall()]
+                cols_to_add = [
+                    ("case_id", "VARCHAR(50)"),
+                    ("customer_id", "VARCHAR(100)"),
+                    ("merchant_id", "VARCHAR(100)"),
+                    ("amount", "FLOAT DEFAULT 0.0"),
+                    ("decision", "VARCHAR(30) DEFAULT 'REVIEW'"),
+                    ("risk_score", "FLOAT DEFAULT 0.0"),
+                    ("priority", "VARCHAR(20) DEFAULT 'MEDIUM'"),
+                    ("priority_reason", "TEXT"),
+                    ("assigned_to", "VARCHAR(100)"),
+                    ("resolution", "VARCHAR(50)"),
+                    ("resolution_reason", "TEXT"),
+                    ("report_payload", "TEXT"),
+                ]
+                for col_name, col_def in cols_to_add:
+                    if col_name not in existing_cols:
+                        cursor.execute(f"ALTER TABLE cases ADD COLUMN {col_name} {col_def}")
+                conn.connection.commit()
+    except Exception as e:
+        logger.warning(f"SQLite schema auto-migration notice: {e}")
+
+
 def init_database(database_url: str | None = None):
     """
     Create all tables defined by ORM models.
@@ -67,5 +98,6 @@ def init_database(database_url: str | None = None):
 
     target_engine = _get_engine(database_url) if database_url else engine
     Base.metadata.create_all(bind=target_engine)
+    _migrate_sqlite_schema(target_engine)
     logger.info("Database tables initialized successfully.")
     return target_engine

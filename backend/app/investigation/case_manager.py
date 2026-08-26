@@ -44,7 +44,7 @@ class CaseManager:
         self._init_db_and_load_cases()
 
     def _init_db_and_load_cases(self):
-        """Load existing cases from database into memory cache."""
+        """Load existing cases from database into memory cache, or seed default triage cases."""
         try:
             with SessionLocal() as db:
                 db_cases = db.query(DBCase).all()
@@ -74,7 +74,7 @@ class CaseManager:
                 
                 # Update case counter
                 if self.cases:
-                    max_num = max([int(cid.split("-")[-1]) for cid in self.cases.keys() if "-" in cid] + [0])
+                    max_num = max([int(cid.split("-")[-1]) for cid in self.cases.keys() if "-" in cid and cid.split("-")[-1].isdigit()] + [0])
                     self._case_counter = max_num + 1
 
                 # Load feedback records
@@ -89,8 +89,118 @@ class CaseManager:
                         "created_at": str(fb.created_at),
                     })
         except Exception:
-            # Fall back gracefully to pure in-memory mode if DB not yet initialized
+            # Fall back gracefully to pure in-memory mode if DB query encounters error
             pass
+
+        # If no cases exist yet, seed initial representative cases
+        if not self.cases:
+            self._seed_default_cases()
+
+    def _seed_default_cases(self):
+        """Seed representative initial fraud cases into operations queue for instant demo & triage."""
+        initial_cases_data = [
+            {
+                "case_id": "CASE-00001",
+                "transaction_id": 2557,
+                "customer_id": "CUST_SYN_081",
+                "merchant_id": "MERCH_ELECTRONICS_05",
+                "timestamp": "2025-06-15 02:14:32",
+                "amount": 42500.00,
+                "policy_decision": "HOLD",
+                "priority": CasePriority.CRITICAL,
+                "priority_reason": "Coordinated Multi-Accounting Syndicate: Collusive ring sharing devices and payment cards (Graph Score: 0.88).",
+                "status": CaseStatus.OPEN,
+                "assigned_to": None,
+            },
+            {
+                "case_id": "CASE-00002",
+                "transaction_id": 3412,
+                "customer_id": "CUST_PREM_102",
+                "merchant_id": "MERCH_LUXURY_02",
+                "timestamp": "2025-06-15 03:22:10",
+                "amount": 48500.00,
+                "policy_decision": "HOLD",
+                "priority": CasePriority.CRITICAL,
+                "priority_reason": "Account Takeover Surge: High-value spend (7.5x customer baseline) from unrecognized device token and off-hour IP.",
+                "status": CaseStatus.OPEN,
+                "assigned_to": None,
+            },
+            {
+                "case_id": "CASE-00003",
+                "transaction_id": 1109,
+                "customer_id": "CUST_CARDTEST_04",
+                "merchant_id": "MERCH_ONLINE_GAME_02",
+                "timestamp": "2025-06-15 02:05:44",
+                "amount": 150.00,
+                "policy_decision": "HOLD",
+                "priority": CasePriority.HIGH,
+                "priority_reason": "Card Testing Bot Burst: 8 rapid micro-authorizations/hour on payment card token across merchants.",
+                "status": CaseStatus.INVESTIGATING,
+                "assigned_to": "Analyst_Priya",
+            },
+            {
+                "case_id": "CASE-00004",
+                "transaction_id": 4890,
+                "customer_id": "CUST_STD_554",
+                "merchant_id": "MERCH_RETAIL_05",
+                "timestamp": "2025-06-15 11:30:15",
+                "amount": 18200.00,
+                "policy_decision": "REVIEW",
+                "priority": CasePriority.HIGH,
+                "priority_reason": "Customer Spending Deviation: Transaction amount 3.8x rolling average combined with velocity burst.",
+                "status": CaseStatus.OPEN,
+                "assigned_to": None,
+            },
+            {
+                "case_id": "CASE-00005",
+                "transaction_id": 5621,
+                "customer_id": "CUST_REG_891",
+                "merchant_id": "MERCH_GROCERY_01",
+                "timestamp": "2025-06-15 04:12:00",
+                "amount": 3850.00,
+                "policy_decision": "REVIEW",
+                "priority": CasePriority.MEDIUM,
+                "priority_reason": "Unrecognized Device & Off-Hour Checkout: Mild ML risk probability (0.34) requiring analyst verification.",
+                "status": CaseStatus.OPEN,
+                "assigned_to": None,
+            },
+            {
+                "case_id": "CASE-00006",
+                "transaction_id": 6120,
+                "customer_id": "CUST_VIP_003",
+                "merchant_id": "MERCH_TRAVEL_01",
+                "timestamp": "2025-06-14 18:45:00",
+                "amount": 7500.00,
+                "policy_decision": "REVIEW",
+                "priority": CasePriority.LOW,
+                "priority_reason": "Cross-Border Merchant Checkout: High ticket travel booking.",
+                "status": CaseStatus.RESOLVED,
+                "assigned_to": "Analyst_Priya",
+                "resolution": "LEGITIMATE",
+                "resolution_reason": "Customer confirmed business travel flight and hotel booking via automated callback.",
+            },
+        ]
+        for data in initial_cases_data:
+            case = InvestigationCase(
+                case_id=data["case_id"],
+                transaction_id=data["transaction_id"],
+                customer_id=data.get("customer_id"),
+                merchant_id=data.get("merchant_id"),
+                timestamp=data["timestamp"],
+                amount=data["amount"],
+                policy_decision=data["policy_decision"],
+                priority=data["priority"],
+                priority_reason=data["priority_reason"],
+                status=data["status"],
+                assigned_to=data.get("assigned_to"),
+                resolution=data.get("resolution"),
+                resolution_reason=data.get("resolution_reason"),
+                created_at=utc_now_iso(),
+                updated_at=utc_now_iso(),
+            )
+            self.cases[case.case_id] = case
+            self._persist_case_to_db(case)
+        self._case_counter = len(initial_cases_data) + 1
 
     def create_case_from_decision(
         self,

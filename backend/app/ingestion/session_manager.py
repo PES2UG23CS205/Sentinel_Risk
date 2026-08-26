@@ -22,11 +22,11 @@ from backend.app.investigation.agent import InvestigationAgent
 class LiveSessionManager:
     """Stateful coordinator for real-time transaction sessions."""
 
-    def __init__(self):
+    def __init__(self, case_manager: Optional[CaseManager] = None):
         self.feature_builder = IncrementalFeatureBuilder()
         self.risk_service = RealtimeRiskService()
         self.investigation_agent = InvestigationAgent()
-        self.case_manager = CaseManager(self.investigation_agent)
+        self.case_manager = case_manager or CaseManager(self.investigation_agent)
         
         self.session_id: str = f"SESSION-{uuid.uuid4().hex[:8].upper()}"
         self.source_name: str = "SYNTHETIC_DATASET"
