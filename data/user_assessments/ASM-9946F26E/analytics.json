@@ -1,0 +1,166 @@
+{
+  "total_transactions": 55,
+  "approved_count": 29,
+  "challenged_count": 16,
+  "review_count": 2,
+  "hold_count": 8,
+  "approval_rate_pct": 52.73,
+  "challenge_rate_pct": 29.09,
+  "review_rate_pct": 3.64,
+  "hold_rate_pct": 14.55,
+  "risk_flag_rate_pct": 47.27,
+  "total_volume": 378183.0,
+  "amount_at_risk": 171498.0,
+  "avg_risk_score": 0.1383,
+  "max_risk_score": 0.95,
+  "score_distribution": {
+    "0.0-0.1": 29,
+    "0.1-0.25": 16,
+    "0.25-0.5": 4,
+    "0.5-0.75": 5,
+    "0.75-1.0": 1
+  },
+  "decision_distribution": {
+    "APPROVE": 29,
+    "CHALLENGE": 16,
+    "REVIEW": 2,
+    "HOLD": 8
+  },
+  "top_risky_merchants": [
+    {
+      "merchant_id": "MERCH_FOOD_08",
+      "transaction_count": 3,
+      "avg_risk_score": 0.4067,
+      "high_risk_count": 2
+    },
+    {
+      "merchant_id": "MERCH_ONLINE_GAME_02",
+      "transaction_count": 2,
+      "avg_risk_score": 0.4,
+      "high_risk_count": 2
+    },
+    {
+      "merchant_id": "MERCH_ONLINE_GAME_03",
+      "transaction_count": 1,
+      "avg_risk_score": 0.95,
+      "high_risk_count": 1
+    },
+    {
+      "merchant_id": "MERCH_RETAIL_05",
+      "transaction_count": 1,
+      "avg_risk_score": 0.55,
+      "high_risk_count": 1
+    },
+    {
+      "merchant_id": "MERCH_COFFEE_01",
+      "transaction_count": 1,
+      "avg_risk_score": 0.55,
+      "high_risk_count": 1
+    },
+    {
+      "merchant_id": "MERCH_LUXURY_02",
+      "transaction_count": 1,
+      "avg_risk_score": 0.39,
+      "high_risk_count": 1
+    },
+    {
+      "merchant_id": "MERCH_CRYPTO_01",
+      "transaction_count": 1,
+      "avg_risk_score": 0.3,
+      "high_risk_count": 1
+    },
+    {
+      "merchant_id": "MERCH_GROCERY_01",
+      "transaction_count": 4,
+      "avg_risk_score": 0.2013,
+      "high_risk_count": 1
+    },
+    {
+      "merchant_id": "MERCH_SUPERMARKET_03",
+      "transaction_count": 1,
+      "avg_risk_score": 0.18,
+      "high_risk_count": 0
+    },
+    {
+      "merchant_id": "MERCH_JEWELRY_01",
+      "transaction_count": 1,
+      "avg_risk_score": 0.12,
+      "high_risk_count": 0
+    }
+  ],
+  "top_risky_customers": [
+    {
+      "customer_id": "CUST_BOT_05",
+      "transaction_count": 1,
+      "avg_risk_score": 0.95,
+      "high_risk_count": 1
+    },
+    {
+      "customer_id": "CUST_BOT_03",
+      "transaction_count": 1,
+      "avg_risk_score": 0.4,
+      "high_risk_count": 1
+    },
+    {
+      "customer_id": "CUST_BOT_04",
+      "transaction_count": 1,
+      "avg_risk_score": 0.4,
+      "high_risk_count": 1
+    },
+    {
+      "customer_id": "CUST_1032",
+      "transaction_count": 1,
+      "avg_risk_score": 0.39,
+      "high_risk_count": 1
+    },
+    {
+      "customer_id": "CUST_1031",
+      "transaction_count": 1,
+      "avg_risk_score": 0.3,
+      "high_risk_count": 1
+    },
+    {
+      "customer_id": "CUST_1008",
+      "transaction_count": 2,
+      "avg_risk_score": 0.2825,
+      "high_risk_count": 1
+    },
+    {
+      "customer_id": "CUST_1005",
+      "transaction_count": 3,
+      "avg_risk_score": 0.2283,
+      "high_risk_count": 1
+    },
+    {
+      "customer_id": "CUST_1002",
+      "transaction_count": 4,
+      "avg_risk_score": 0.2013,
+      "high_risk_count": 1
+    },
+    {
+      "customer_id": "CUST_1003",
+      "transaction_count": 4,
+      "avg_risk_score": 0.2013,
+      "high_risk_count": 1
+    },
+    {
+      "customer_id": "CUST_1001",
+      "transaction_count": 5,
+      "avg_risk_score": 0.197,
+      "high_risk_count": 1
+    }
+  ],
+  "ground_truth_metrics": {
+    "has_ground_truth": true,
+    "ground_truth_fraud_count": 9,
+    "ground_truth_legit_count": 46,
+    "true_positives": 8,
+    "false_positives": 18,
+    "true_negatives": 28,
+    "false_negatives": 1,
+    "precision": 0.3077,
+    "recall": 0.8889,
+    "f1_score": 0.4571,
+    "accuracy": 0.6545
+  }
+}

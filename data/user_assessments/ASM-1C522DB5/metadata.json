@@ -1,0 +1,369 @@
+{
+  "assessment_id": "ASM-1C522DB5",
+  "dataset_name": "user_upload_example.csv__Demo_",
+  "file_size_bytes": 5991,
+  "total_rows": 55,
+  "uploaded_at": "2026-08-26T13:58:52Z",
+  "status": "COMPLETED",
+  "mode": "QUICK_ASSESSMENT",
+  "column_mapping": {
+    "transaction_id": "transaction_id",
+    "timestamp": "timestamp",
+    "amount": "amount",
+    "customer_id": "customer_id",
+    "merchant_id": "merchant_id",
+    "device_id": "device_id",
+    "payment_instrument_id": "payment_instrument_id",
+    "currency": "currency",
+    "ip_address": null,
+    "is_fraud": "is_fraud"
+  },
+  "validation_summary": {
+    "is_valid": true,
+    "total_rows": 55,
+    "valid_rows": 55,
+    "invalid_rows": 0,
+    "has_timestamp": true,
+    "has_amount": true,
+    "has_customer_id": true,
+    "has_merchant_id": true,
+    "has_device_id": true,
+    "has_payment_instrument_id": true,
+    "has_ground_truth": true,
+    "timestamp_range": [
+      "2026-03-01 08:15:20",
+      "2026-03-02 09:30:00"
+    ],
+    "is_chronological": true,
+    "duplicate_transaction_ids": 0,
+    "issues": []
+  },
+  "signal_report": {
+    "available_count": 14,
+    "unavailable_count": 0,
+    "available_signals": [
+      {
+        "signal_name": "Transaction Amount",
+        "category": "Transaction Core",
+        "is_available": true,
+        "required_fields": [
+          "amount"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Numeric transaction value used for ticket size analysis and financial exposure."
+      },
+      {
+        "signal_name": "Temporal Timestamp & Off-Hour Scoring",
+        "category": "Transaction Core",
+        "is_available": true,
+        "required_fields": [
+          "timestamp"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Parsed datetime enabling off-hour risk bands and point-in-time sliding windows."
+      },
+      {
+        "signal_name": "Currency & High-Risk Cross-Border Marker",
+        "category": "Transaction Core",
+        "is_available": true,
+        "required_fields": [
+          "currency"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Explicit currency mapped from dataset."
+      },
+      {
+        "signal_name": "Customer Velocity Windows (1h, 24h, 7d)",
+        "category": "Customer Velocity",
+        "is_available": true,
+        "required_fields": [
+          "customer_id",
+          "timestamp"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Sliding window frequency counters computed strictly from preceding timestamps (t < T)."
+      },
+      {
+        "signal_name": "Customer Spending Ratio & Z-Score Deviation",
+        "category": "Customer Behavior",
+        "is_available": true,
+        "required_fields": [
+          "customer_id",
+          "amount",
+          "timestamp"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Calculates amount ratio against historical customer baseline average (strictly t < T)."
+      },
+      {
+        "signal_name": "Merchant / Terminal Velocity",
+        "category": "Merchant Intelligence",
+        "is_available": true,
+        "required_fields": [
+          "merchant_id",
+          "timestamp"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Sliding terminal authorization volume counters computed strictly t < T."
+      },
+      {
+        "signal_name": "Merchant Point-in-Time Risk Scoring",
+        "category": "Merchant Intelligence",
+        "is_available": true,
+        "required_fields": [
+          "merchant_id",
+          "amount",
+          "timestamp"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Aggregates merchant volume trajectories and customer concentration risk."
+      },
+      {
+        "signal_name": "Device Novelty for Customer",
+        "category": "Identity & Device",
+        "is_available": true,
+        "required_fields": [
+          "device_id",
+          "customer_id"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Identifies when an established customer transacts from an unseen hardware token."
+      },
+      {
+        "signal_name": "Hardware Fingerprint Multi-Account Sharing",
+        "category": "Identity & Device",
+        "is_available": true,
+        "required_fields": [
+          "device_id",
+          "customer_id"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Tracks number of distinct customer accounts linked to a single physical device."
+      },
+      {
+        "signal_name": "Card / Payment Instrument Velocity Burst",
+        "category": "Payment Instrument",
+        "is_available": true,
+        "required_fields": [
+          "payment_instrument_id",
+          "timestamp"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Detects rapid micro-authorization card testing attacks across merchants."
+      },
+      {
+        "signal_name": "Card Multi-Customer Sharing",
+        "category": "Payment Instrument",
+        "is_available": true,
+        "required_fields": [
+          "payment_instrument_id",
+          "customer_id"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Identifies single card tokens attempted across distinct customer accounts."
+      },
+      {
+        "signal_name": "Coordinated Abuse Ring Graph Score",
+        "category": "Entity Graph",
+        "is_available": true,
+        "required_fields": [
+          "customer_id",
+          "device_id",
+          "payment_instrument_id"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Bipartite graph topology analysis discovering multi-account collusive rings."
+      },
+      {
+        "signal_name": "Calibrated ML Probability Inference",
+        "category": "Machine Learning",
+        "is_available": true,
+        "required_fields": [
+          "amount",
+          "timestamp"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Evaluates LightGBM model using available temporal features with explicit schema adaptation."
+      },
+      {
+        "signal_name": "Supervised Ground-Truth Detection Metrics",
+        "category": "Evaluation",
+        "is_available": true,
+        "required_fields": [
+          "is_fraud"
+        ],
+        "status_label": "AVAILABLE",
+        "technical_rationale": "Explicit fraud label detected; Precision, Recall, F1, and Confusion Matrix can be computed."
+      }
+    ],
+    "unavailable_signals": [],
+    "recommended_mode": "HISTORICAL_REPLAY",
+    "fabrication_policy_notice": "SentinelRisk Core Principle: Unavailable signals are never fabricated or substituted with dummy zeros."
+  },
+  "analytics": {
+    "total_transactions": 55,
+    "approved_count": 29,
+    "challenged_count": 16,
+    "review_count": 2,
+    "hold_count": 8,
+    "approval_rate_pct": 52.73,
+    "challenge_rate_pct": 29.09,
+    "review_rate_pct": 3.64,
+    "hold_rate_pct": 14.55,
+    "risk_flag_rate_pct": 47.27,
+    "total_volume": 378183.0,
+    "amount_at_risk": 171498.0,
+    "avg_risk_score": 0.1383,
+    "max_risk_score": 0.95,
+    "score_distribution": {
+      "0.0-0.1": 29,
+      "0.1-0.25": 16,
+      "0.25-0.5": 4,
+      "0.5-0.75": 5,
+      "0.75-1.0": 1
+    },
+    "decision_distribution": {
+      "APPROVE": 29,
+      "CHALLENGE": 16,
+      "REVIEW": 2,
+      "HOLD": 8
+    },
+    "top_risky_merchants": [
+      {
+        "merchant_id": "MERCH_FOOD_08",
+        "transaction_count": 3,
+        "avg_risk_score": 0.4067,
+        "high_risk_count": 2
+      },
+      {
+        "merchant_id": "MERCH_ONLINE_GAME_02",
+        "transaction_count": 2,
+        "avg_risk_score": 0.4,
+        "high_risk_count": 2
+      },
+      {
+        "merchant_id": "MERCH_ONLINE_GAME_03",
+        "transaction_count": 1,
+        "avg_risk_score": 0.95,
+        "high_risk_count": 1
+      },
+      {
+        "merchant_id": "MERCH_RETAIL_05",
+        "transaction_count": 1,
+        "avg_risk_score": 0.55,
+        "high_risk_count": 1
+      },
+      {
+        "merchant_id": "MERCH_COFFEE_01",
+        "transaction_count": 1,
+        "avg_risk_score": 0.55,
+        "high_risk_count": 1
+      },
+      {
+        "merchant_id": "MERCH_LUXURY_02",
+        "transaction_count": 1,
+        "avg_risk_score": 0.39,
+        "high_risk_count": 1
+      },
+      {
+        "merchant_id": "MERCH_CRYPTO_01",
+        "transaction_count": 1,
+        "avg_risk_score": 0.3,
+        "high_risk_count": 1
+      },
+      {
+        "merchant_id": "MERCH_GROCERY_01",
+        "transaction_count": 4,
+        "avg_risk_score": 0.2013,
+        "high_risk_count": 1
+      },
+      {
+        "merchant_id": "MERCH_SUPERMARKET_03",
+        "transaction_count": 1,
+        "avg_risk_score": 0.18,
+        "high_risk_count": 0
+      },
+      {
+        "merchant_id": "MERCH_JEWELRY_01",
+        "transaction_count": 1,
+        "avg_risk_score": 0.12,
+        "high_risk_count": 0
+      }
+    ],
+    "top_risky_customers": [
+      {
+        "customer_id": "CUST_BOT_05",
+        "transaction_count": 1,
+        "avg_risk_score": 0.95,
+        "high_risk_count": 1
+      },
+      {
+        "customer_id": "CUST_BOT_03",
+        "transaction_count": 1,
+        "avg_risk_score": 0.4,
+        "high_risk_count": 1
+      },
+      {
+        "customer_id": "CUST_BOT_04",
+        "transaction_count": 1,
+        "avg_risk_score": 0.4,
+        "high_risk_count": 1
+      },
+      {
+        "customer_id": "CUST_1032",
+        "transaction_count": 1,
+        "avg_risk_score": 0.39,
+        "high_risk_count": 1
+      },
+      {
+        "customer_id": "CUST_1031",
+        "transaction_count": 1,
+        "avg_risk_score": 0.3,
+        "high_risk_count": 1
+      },
+      {
+        "customer_id": "CUST_1008",
+        "transaction_count": 2,
+        "avg_risk_score": 0.2825,
+        "high_risk_count": 1
+      },
+      {
+        "customer_id": "CUST_1005",
+        "transaction_count": 3,
+        "avg_risk_score": 0.2283,
+        "high_risk_count": 1
+      },
+      {
+        "customer_id": "CUST_1002",
+        "transaction_count": 4,
+        "avg_risk_score": 0.2013,
+        "high_risk_count": 1
+      },
+      {
+        "customer_id": "CUST_1003",
+        "transaction_count": 4,
+        "avg_risk_score": 0.2013,
+        "high_risk_count": 1
+      },
+      {
+        "customer_id": "CUST_1001",
+        "transaction_count": 5,
+        "avg_risk_score": 0.197,
+        "high_risk_count": 1
+      }
+    ],
+    "ground_truth_metrics": {
+      "has_ground_truth": true,
+      "ground_truth_fraud_count": 9,
+      "ground_truth_legit_count": 46,
+      "true_positives": 8,
+      "false_positives": 18,
+      "true_negatives": 28,
+      "false_negatives": 1,
+      "precision": 0.3077,
+      "recall": 0.8889,
+      "f1_score": 0.4571,
+      "accuracy": 0.6545
+    }
+  }
+}
