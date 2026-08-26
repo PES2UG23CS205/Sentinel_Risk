@@ -10,6 +10,8 @@ from typing import Any
 import yaml
 from pathlib import Path
 
+from backend.app.utils.timezone import utc_now_iso
+
 
 class MerchantAlertGenerator:
     """Evaluates merchant metrics against deterministic threshold rules to produce actionable alerts."""
@@ -38,7 +40,7 @@ class MerchantAlertGenerator:
         """
         alerts = []
         m_id = str(profile.get("merchant_id", "UNKNOWN"))
-        now_str = profile.get("as_of_timestamp", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        now_str = profile.get("as_of_timestamp") or utc_now_iso()
         cfg = self.config.get("alert_thresholds", {})
 
         fraud_rate = float(profile.get("fraud_rate_pct", 0.0))

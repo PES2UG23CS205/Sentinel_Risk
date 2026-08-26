@@ -10,6 +10,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from backend.app.utils.timezone import utc_now_iso
+
 
 class IdempotencyConflictError(Exception):
     """Raised when an idempotency key is resubmitted with a conflicting payload."""
@@ -40,7 +42,7 @@ class IdempotencyManager:
             key=str(key),
             input_hash=input_hash,
             response=response,
-            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            timestamp=utc_now_iso(),
         )
 
     def check_idempotency(self, key: str, input_hash: str) -> dict | None:

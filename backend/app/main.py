@@ -29,6 +29,7 @@ from backend.app.api.metrics import router as metrics_router
 from backend.app.api.dashboard import router as dashboard_router
 from backend.app.api.stream import router as stream_router
 from backend.app.api.merchants import router as merchants_router
+from backend.app.api.data_lab import router as data_lab_router
 from backend.app.api.placeholders import (
     events_router,
     model_router,
@@ -97,6 +98,7 @@ def create_app() -> FastAPI:
     app.include_router(dashboard_router)
     app.include_router(stream_router)
     app.include_router(merchants_router)
+    app.include_router(data_lab_router)
 
     @app.get("/download", summary="Download complete SentinelRisk project archive")
     async def download_bundle():

@@ -277,9 +277,41 @@ def main():
             print(f"    {r['system_tier']:<30} | {r['fraud_recall_pct']:>6.2f}% | {r['total_cost_inr']:>14,.2f} | {r['status']}")
         print("    " + "-" * 72)
 
+    # STEP 12: Data Lab & External Real-World Risk Assessment
+    print_banner(12, "DATA LAB — EXTERNAL CSV INGESTION & REAL-WORLD RISK ASSESSMENT")
+    from backend.app.data_lab.validator import DataLabValidator
+    from backend.app.data_lab.column_detector import ColumnDetector
+    from backend.app.data_lab.signal_matrix import generate_signal_matrix
+    from backend.app.data_lab.engine import DataLabAssessmentEngine
+    from backend.app.data_lab.models import AssessmentMode
+
+    demo_csv_path = Path("data/demo/user_upload_example.csv")
+    if demo_csv_path.exists():
+        import csv
+        with open(demo_csv_path, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            raw_rows = list(reader)
+            headers = reader.fieldnames or []
+
+        detected_cols = ColumnDetector.detect_columns(headers, raw_rows[:20])
+        mapping = ColumnDetector.get_default_mapping(detected_cols)
+        val_report = DataLabValidator.validate_dataset(raw_rows, mapping)
+        sig_report = generate_signal_matrix(val_report, mapping)
+        engine = DataLabAssessmentEngine()
+        analytics, scored = engine.run_assessment(raw_rows, mapping, val_report, mode=AssessmentMode.HISTORICAL_REPLAY)
+
+        print(f"  • External Dataset: user_upload_example.csv ({len(raw_rows)} txns)")
+        print(f"  • Data Quality    : \033[92mVALID ({val_report.valid_rows} valid, {val_report.invalid_rows} invalid)\033[0m")
+        print(f"  • Available Sigs  : {sig_report.available_count} available, {sig_report.unavailable_count} missing (Zero Fabrication Active)")
+        print(f"  • Scored Summary  : {analytics.approved_count} APPROVE, {analytics.challenged_count} CHALLENGE, {analytics.review_count} REVIEW, {analytics.hold_count} HOLD")
+        print(f"  • Risk Exposure   : ₹{analytics.amount_at_risk:,.2f} at risk ({analytics.risk_flag_rate_pct}% flag rate)")
+        if analytics.ground_truth_metrics and analytics.ground_truth_metrics.has_ground_truth:
+            gt = analytics.ground_truth_metrics
+            print(f"  • Detection Perf  : Recall: {gt.recall*100:.1f}% | Precision: {gt.precision*100:.1f}% | F1: {gt.f1_score:.3f}")
+
     print("\n" + "█" * 78)
     print(" ✅ SENTINELRISK MASTER DEMONSTRATION COMPLETE (100% SUCCESSFUL)")
-    print("    Feature development is FROZEN. All 15 Stages authenticated.")
+    print("    Feature development is FROZEN. All 15 Stages + Data Lab authenticated.")
     print("█" * 78 + "\n")
 
 

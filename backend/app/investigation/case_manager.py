@@ -14,6 +14,8 @@ import json
 from datetime import datetime
 from typing import Optional
 
+from backend.app.utils.timezone import utc_now_iso
+
 from backend.app.investigation.models import (
     CaseStatus,
     CasePriority,
@@ -237,7 +239,7 @@ class CaseManager:
 
         case.assigned_to = analyst
         case.status = CaseStatus.INVESTIGATING if case.status == CaseStatus.OPEN else case.status
-        case.updated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        case.updated_at = utc_now_iso()
 
         evt = CaseHistoryEvent(
             event_id=f"EVT-{self._event_counter:05d}",
@@ -257,7 +259,7 @@ class CaseManager:
         if not case:
             raise KeyError(f"Case {case_id} not found.")
 
-        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        now_str = utc_now_iso()
         note = AnalystNote(
             note_id=f"NOTE-{self._note_counter:05d}",
             case_id=case_id,
@@ -310,7 +312,7 @@ class CaseManager:
         if not case:
             raise KeyError(f"Case {case_id} not found.")
 
-        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        now_str = utc_now_iso()
         case.status = CaseStatus.RESOLVED
         case.resolution = resolution
         case.resolution_reason = reason
@@ -346,7 +348,7 @@ class CaseManager:
         if not case:
             raise KeyError(f"Case {case_id} not found.")
 
-        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        now_str = utc_now_iso()
         case.status = CaseStatus.DISMISSED
         case.resolution = "LEGITIMATE"
         case.resolution_reason = reason or "Dismissed by analyst as benign."
@@ -381,7 +383,7 @@ class CaseManager:
         if not case:
             raise KeyError(f"Case {case_id} not found.")
 
-        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        now_str = utc_now_iso()
         case.status = CaseStatus.ESCALATED
         case.priority = CasePriority.CRITICAL
         case.updated_at = now_str
@@ -467,7 +469,7 @@ class CaseManager:
         report = self.agent.investigate(context)
         case.report = report
 
-        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        now_str = utc_now_iso()
         evt = CaseHistoryEvent(
             event_id=f"EVT-{self._event_counter:05d}",
             case_id=case_id,
@@ -488,7 +490,7 @@ class CaseManager:
 
         old_status = case.status
         case.status = new_status if isinstance(new_status, CaseStatus) else CaseStatus(new_status)
-        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        now_str = utc_now_iso()
         case.updated_at = now_str
 
         evt = CaseHistoryEvent(

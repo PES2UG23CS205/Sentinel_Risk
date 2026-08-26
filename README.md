@@ -76,6 +76,7 @@ Traditional rule-based systems stop only **~21%** of fraudulent transactions whi
 
 ## 3. Main Capabilities
 
+- **Data Lab & External Risk Assessment Studio**: Self-service CSV dataset ingestion, automatic header detection & alias binding, deep data quality validation, authoritative signal availability matrix with **Zero Feature Fabrication Guarantee**, and dual-mode (Quick vs Historical Replay) risk scoring.
 - **Point-in-Time Stateful Machine Learning (LightGBM)**: Calibrated tabular risk model trained on 47 point-in-time features with zero data leakage ($t < T$).
 - **Heterogeneous Entity Graph Intelligence**: Identifies collusive multi-account syndicates and shared-device/card abuse ($100\%$ case recall on 15/15 rings).
 - **Stage 12 Quad-State Policy Engine**: Executes deterministic precedence hierarchy (`APPROVE`, `CHALLENGE`, `REVIEW`, `HOLD`) with dynamic step-up challenges (OTP, 3DS, Biometric).
@@ -175,18 +176,21 @@ cd frontend
 npm run dev
 ```
 - **Web Operations Console**: `http://localhost:3000`
+- **Embedded All-in-One Operations Console**: `http://localhost:8000/dashboard`
 - Navigation routes:
   - `/` — Live Risk Evaluation Dashboard & Stream Replay
+  - `/data-lab` — Data Lab CSV Ingestion & Real-World Assessment Studio
   - `/incidents` — "What Broke at 2 AM?" Incident Simulator
   - `/review-queue` — Analyst Case Management & Human-in-the-Loop
   - `/operations` — System Health & Operational Latency Probes
+  - `/model-evaluation` — Model Evaluation & Performance Curves
 
 ---
 
 ## 9. Running Tests & Demonstrations
 
 ### Automated Test Suite
-SentinelRisk features **167 automated unit, integration, and contract tests (100% passing)**:
+SentinelRisk features **179 automated unit, integration, and contract tests (100% passing)**:
 ```bash
 python -m pytest tests/ -v
 ```

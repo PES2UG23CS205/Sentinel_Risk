@@ -10,6 +10,8 @@ from typing import Any
 import pandas as pd
 import numpy as np
 
+from backend.app.utils.timezone import utc_now_iso
+
 
 class MerchantRiskProfiler:
     """Computes point-in-time merchant risk profiles and windowed trends."""
@@ -160,5 +162,5 @@ class MerchantRiskProfiler:
                 "7d_volume_inr": 1250.0,
             },
             "trend_direction": "STABLE",
-            "as_of_timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "as_of_timestamp": utc_now_iso(),
         }

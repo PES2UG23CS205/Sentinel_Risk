@@ -14,6 +14,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
+from backend.app.utils.timezone import utc_now_iso
+
 
 class ConfidenceLevel(str, Enum):
     HIGH = "HIGH"
@@ -260,8 +262,8 @@ class InvestigationCase:
     assigned_to: str | None = None
     resolution: str | None = None
     resolution_reason: str | None = None
-    created_at: str = field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    updated_at: str = field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    created_at: str = field(default_factory=utc_now_iso)
+    updated_at: str = field(default_factory=utc_now_iso)
     report: InvestigationReport | None = None
     notes: list[AnalystNote] = field(default_factory=list)
     history: list[CaseHistoryEvent] = field(default_factory=list)

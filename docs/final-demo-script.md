@@ -45,12 +45,16 @@ python scripts/final_demo.py
     - *Show*: Population Stability Index (PSI) feature table detecting real distribution shifts.
 11. **Step 11: Authoritative Benchmark Comparison**
     - *Show*: Frozen 10,179 synthetic test set ($98.47\%$ recall, $36.8\%$ cost reduction) and 316,197 Fraud Handbook replay ($29.1\%$ cost reduction).
+12. **Step 12: Data Lab & Real-World User Assessment Studio (Data Lab)**
+    - *Show*: Upload external CSV or 1-click load 500-transaction demo, demonstrate automatic column alias detection, deep data quality validation, authoritative Signal Availability Matrix under the **Zero Feature Fabrication Guarantee**, and execute Mode A / Mode B risk assessment.
+    - *Outcome*: Scored transaction explorer, side signal inspector drawer, KPI decision breakdowns, and instant audit CSV/JSON export.
 
 ---
 
 ## 3. UI Dashboard Walkthrough (http://localhost:8000/dashboard)
 - **🏛️ Executive Overview**: Live financial loss prevented counter, approval/challenge/review/hold distribution.
 - **⚡ Live Authorization Feed**: Real-time event streaming with step-up challenge badges and signal inspectors.
+- **📥 Data Lab Assessment Studio**: Self-service CSV ingestion, column mapping, signal matrix, and risk assessment workbench.
 - **🔍 Fraud Operations Center**: Kanban case queue, analyst assignment, notes, and feedback metrics.
 - **🏢 Merchant Risk Intelligence**: Merchant rankings, risk drivers breakdown, and alert management.
 - **📈 Model Health**: Live PSI drift monitoring across feature distributions.

@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 const navItems = [
   { href: '/', label: 'Risk Overview', icon: '◈' },
   { href: '/live-feed', label: 'Live Risk Feed', icon: '◉' },
+  { href: '/data-lab', label: 'Data Lab Assessment', icon: '📥' },
   { href: '/operations', label: 'Operations & Health', icon: '⚙' },
   { href: '/review-queue', label: 'Review Queue', icon: '☰' },
   { href: '/incidents', label: 'Incidents', icon: '⚡' },
